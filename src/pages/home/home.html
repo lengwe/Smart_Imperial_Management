@@ -1,7 +1,39 @@
-<h2 text-center>You are logged in!</h2>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Smart Imperial</ion-title>
 
-<div margin-top text-center>
-  <button ion-button (click)="logOut()">
-    Log out
-  </button>
-</div>
+    <ion-buttons right>
+      <button ion-button (click)="logOut()">
+        Log out
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+</ion-header>
+
+<ion-content padding>
+  <h2 text-center>Welcome!</h2>
+
+  <div text-center class="gps-buttons">
+    <button ion-button block margin-top (click)="findMyLocation()">
+      Find my location
+    </button>
+
+    <button ion-button block margin-top (click)="getClosestUser()">
+      Find closest user
+    </button>
+
+    <button ion-button block margin-top color="secondary" (click)="getAllStores()">
+      Find all store
+    </button>
+
+    <button ion-button block margin-top color="secondary" (click)="getClosestStore()">
+      Find closest store
+    </button>
+
+    <button ion-button block margin-top color="secondary">
+      Fleet and Charge Management
+    </button>
+  </div>
+</ion-content>
