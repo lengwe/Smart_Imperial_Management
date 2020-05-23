@@ -19,17 +19,17 @@ export class HomePage {
     public toastCtrl: ToastController,
     public geolocation: Geolocation,
   ) {
-    this.getMyLocation();
+    // this.getMyLocation();
   }
 
-  getMyLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      console.log('Current Position', resp.coords);
-      this.geoposition = resp;
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-  }
+  // getMyLocation() {
+  //   this.geolocation.getCurrentPosition().then((resp) => {
+  //     console.log('Current Position', resp.coords);
+  //     this.geoposition = resp;
+  //   }).catch((error) => {
+  //     console.log('Error getting location', error);
+  //   });
+  // }
 
   getClosestUser() {
     let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
@@ -60,7 +60,7 @@ export class HomePage {
   }
 
   getAllStores() {
-    let query = new Parse.Query('Store');
+    let query = new Parse.Query('Stores');
 
     query.find().then(stores => {
       console.log('Stores', stores);
@@ -69,7 +69,7 @@ export class HomePage {
         return {
           lat: s.get('Location').latitude,
           lng: s.get('Location').longitude,
-          label: s.get('name')
+          label: s.get('Name')
         };
       });
 
