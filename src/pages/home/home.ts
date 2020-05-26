@@ -1,3 +1,4 @@
+import { FleetPage } from './../fleet/fleet';
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Geolocation, Geoposition} from "@ionic-native/geolocation";
@@ -132,4 +133,10 @@ export class HomePage {
       }).present();
     })
   }
+  gotofleetpage(){
+    this.navCtrl.push('FleetPage')
+  } 
 }
+
+
+
