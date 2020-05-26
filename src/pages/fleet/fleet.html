@@ -1,0 +1,38 @@
+<!--
+  Generated template for the FleetPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>fleet</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-item>
+		<input type="text" [(ngModel)]="fleetname" placeholder="Enter Vehicle"/>
+		<div class="item-note" item-end>
+			<button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
+		</div>
+	</ion-item>
+	<div padding>
+		<ion-list>
+      <ion-item *ngFor="let todo of fleetlist let i = index">
+        {{todo}}
+        <div class="item-note" item-end>
+          <button ion-button clear (click)="updatefleet(i)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button clear (click)="deletefleet(i)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+		</ion-list>
+	</div>
+</ion-content>
