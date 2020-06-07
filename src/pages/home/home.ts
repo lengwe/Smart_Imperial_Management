@@ -58,7 +58,6 @@ export class HomePage {
       console.log('Error getting closest user', err)
     })
   }
-
   getAllStores() {
     let query = new Parse.Query('Stores');
 
@@ -78,7 +77,9 @@ export class HomePage {
       console.log('Error getting closest user', err)
     })
   }
-
+  goTask(){
+    this.navCtrl.push('TaskPage');
+  }
   getClosestStore() {
     let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
     let query = new Parse.Query('Store');
@@ -106,7 +107,6 @@ export class HomePage {
       console.log('Error getting closest user', err)
     })
   }
-
   findMyLocation() {
     let current:Marker = {
       lat: this.geoposition.coords.latitude,
@@ -115,9 +115,6 @@ export class HomePage {
 
     this.navCtrl.push('MapsPage', {data: {current, markers: [current]}});
   }
-
-
-
   logOut() {
     Parse.User.logOut().then((resp) => {
       console.log('Logged out successfully', resp);
@@ -131,5 +128,8 @@ export class HomePage {
         duration: 2000
       }).present();
     })
+  }
+  goRanking(){
+    this.navCtrl.push('RankingPage');
   }
 }
