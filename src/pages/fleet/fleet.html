@@ -7,32 +7,142 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>fleet</ion-title>
+    <ion-title>Fleet Management</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-	<ion-item>
-		<input type="text" [(ngModel)]="fleetname" placeholder="Enter Vehicle"/>
-		<div class="item-note" item-end>
-			<button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
-		</div>
-	</ion-item>
-	<div padding>
-		<ion-list>
-      <ion-item *ngFor="let todo of fleetlist let i = index">
-        {{todo}}
-        <div class="item-note" item-end>
-          <button ion-button clear (click)="updatefleet(i)">
-            <ion-icon name="create"></ion-icon>
-          </button>
-          <button ion-button clear (click)="deletefleet(i)">
-            <ion-icon name="trash"></ion-icon>
-          </button>
-        </div>
-      </ion-item>
-		</ion-list>
-	</div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        Vehicle ID
+        <ion-list>
+          <ion-item *ngFor="let todo of VehicleIDs">
+            {{todo}}
+        </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+          Vehicle Model
+          <ion-list>
+            <ion-item *ngFor="let todo of VehicleModels">
+              {{todo}}
+          </ion-item>
+          </ion-list>
+      </ion-col>
+      <ion-col>
+        Operator Description
+        <ion-list>
+          <ion-item *ngFor="let todo of OperatorDescriptions">
+            {{todo}}
+        </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+        Service
+        <ion-list>
+          <ion-item *ngFor="let todo of Services">
+            {{todo}}
+        </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+        Charging Level
+        <ion-list>
+          <ion-item *ngFor="let todo of charges">
+            {{todo}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+        Availability
+        <ion-list>
+          <ion-item *ngFor="let todo of Caravail let i = index">
+              <ion-checkbox checked ="todo"></ion-checkbox>
+              <div class="item-note" item-end>
+                <button ion-button clear (click)="updatefleet(i)">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+                <button ion-button clear (click)="deletefleet(i)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+              </div>
+        </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button block margin-top color="secondary" (click)= "addfleet()" shape= "round">
+    Add a New Vehicle 
+  </button>
 </ion-content>
+
+
+
+<!---
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        Vehicle ID
+      </ion-col> 
+      <ion-col>
+        Vehicle Model
+      </ion-col>
+      <ion-col>
+        Operator Description 
+      </ion-col>
+      <ion-col>
+        Service
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <input type="text" [(ngModel)]="fleetname" placeholder="Enter Vehicle ID"/>
+       </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <input type="text" [(ngModel)]="fleetmodel" placeholder="Enter Vehicle model"/>
+       </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <input type="text" [(ngModel)]="fleetdescrip" placeholder="Operator Description"/>
+       </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <input type="text" [(ngModel)]="fleetservice" placeholder="Enter Vehicle ID"/>
+       </ion-item>
+      </ion-col>
+      <ion-col>
+        <div class="item-note" item-end>
+          <button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
+        </div>
+      </ion-col>
+      <div padding>
+        <ion-row>
+          <ion-list>
+            <ion-item *ngFor="let todo of fleetlist let i = index">
+              {{todo}}
+              <div class="item-note" item-end>
+                <button ion-button clear (click)="updatefleet(i)">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+                <button ion-button clear (click)="deletefleet(i)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+      </div>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
+-->

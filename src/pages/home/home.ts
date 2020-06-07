@@ -133,8 +133,30 @@ export class HomePage {
       }).present();
     })
   }
-  gotofleetpage(){
-    this.navCtrl.push('FleetPage')
+   async gotofleetpage(){
+    let Fleet = Parse.Object.extend('Fleet');
+    let fleet = new Parse.Query(Fleet);
+    const results = await fleet.find();
+    
+    let VehicleIDs = [];
+    let VehicleModels = [];
+    let OperatorDescriptions = [];
+    let Services = [];
+    let Caravail = [];
+    let charge = [];
+    for(let i =0; i<results.length; i++){
+      var object = results[i];
+      VehicleIDs[i] = object.get('VehicleID');
+      VehicleModels[i] = object.get('Vehiclemodel');
+      OperatorDescriptions[i] = object.get('OperatorDes');
+      Services[i] = object.get('Service');
+      Caravail[i] = object.get('Availability');
+      charge[i] = object.get('ChargingLevel');
+      console.log(object.charge);
+      }
+    //console.log(VehicleIDs);
+    this.navCtrl.push('FleetPage', {VehicleIDs, VehicleModels, Services, OperatorDescriptions, Caravail, charge
+    });  
   } 
 }
 
