@@ -7,20 +7,37 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>fleet</ion-title>
+    <ion-title text-center>Fleet Management</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	<ion-item>
-		<input type="text" [(ngModel)]="fleetname" placeholder="Enter Vehicle"/>
-		<div class="item-note" item-end>
-			<button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
-		</div>
-	</ion-item>
-	<div padding>
+  <ion-list>
+    <h6>Vehicle ID: </h6>
+    <ion-item>
+      <input type="text" [(ngModel)]="vehicleid" placeholder="Enter Vehicle ID"/>
+    </ion-item>
+    <h6>Charging Level(%): </h6>
+    <ion-item>
+      <input type="text" [(ngModel)]="charging" placeholder="Enter Vehicle Charging Level"/>
+    </ion-item>
+    <h6>Vehicle Model:</h6>
+    <ion-item color='background'>
+      <ion-label>Vehicle Model:</ion-label>
+      <ion-select class = 'placeholder' placeholder="Select One" [(ngModel)]="this.vehiclemodel" 
+      (ionBlur)="selectedVehicle($event)"
+      >
+        <ion-option value="RENAULT KANGOO">RENAULT KANGOO</ion-option>
+        <ion-option value="NISSAN ENV200">NISSAN ENV200</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <div class="item-note" item-end text-center>
+    <button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
+  </div>
+  <div padding>
 		<ion-list>
       <ion-item *ngFor="let todo of fleetlist let i = index">
         {{todo}}
