@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-
+import Parse from 'parse';
 
 /**
  * Generated class for the FleetPage page.
@@ -16,16 +16,20 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
   templateUrl: 'fleet.html',
 })
 export class FleetPage {
-  fleetlist = [];
+  fleetlist: Array<any>=[];
+  vehiclemodel:string;
+  vehicleid:string;
+  charging:string;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   addfleet() {
-    if (this.fleetname.length > 0) {
-        let task = this.fleetname;
+    if (this.vehicleid!=null) {
+        let task = this.vehicleid;
         this.fleetlist.push(task);
         this.fleetname = "";
     }
+    console.log('fleetlist: '+this.fleetlist);
   }
   updatefleet(i){
     let alert = this.alertCtrl.create({
@@ -42,5 +46,8 @@ export class FleetPage {
   }
   deletefleet(i){
     this.fleetlist.splice(i, 1);
+  }
+  selectedVehicle(event){
+    this.vehiclemodel=event.value;
   }
 }
