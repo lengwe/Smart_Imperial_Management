@@ -1,0 +1,270 @@
+<!--
+  Generated template for the TaskPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <!doctype html> -->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Task page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item no-lines>
+    <ion-list-header color="danger" *ngIf = "(month == 'monkey') || (year == '2019')" text-center no-lines>
+      Please choose a date for tasks
+    </ion-list-header>
+    <ion-list-header  color="secondary" *ngIf = "(month != ('monkey' || null) && year != ('2019' || null) && day == ('0' || null))" text-center no-lines>
+      Exact month chosen
+    </ion-list-header>
+    <ion-list-header  color="secondary" *ngIf = "(month != ('monkey' || null) && year != ('2019' || null) && day != ('0' || null))" text-center no-lines>
+      Exact date chosen
+    </ion-list-header>
+  </ion-item>
+  
+  <ion-grid>
+    <ion-row>
+       <ion-col>
+          <ion-item>
+             <ion-label>day</ion-label>
+             <!-- <ion-select okText="OK" cancelText="Cancel" [(ngModel)]="day">
+             <ion-option (click)="refresh_day()">01</ion-option>
+             <ion-option (click)="refresh_day()">02</ion-option>
+             <ion-option (click)="refresh_day()">03</ion-option>
+             <ion-option (click)="refresh_day()">04</ion-option>
+             <ion-option (click)="refresh_day()">05</ion-option>
+             <ion-option (click)="refresh_day()">06</ion-option>
+             <ion-option (click)="refresh_day()">07</ion-option>
+             <ion-option (click)="refresh_day()">08</ion-option> 
+             <ion-option (click)="refresh_day()">09</ion-option>
+             <ion-option (click)="refresh_day()">10</ion-option>
+             <ion-option (click)="refresh_day()">11</ion-option>
+             <ion-option (click)="refresh_day()">12</ion-option>
+             <ion-option (click)="refresh_day()">13</ion-option>
+             <ion-option (click)="refresh_day()">14</ion-option>
+             <ion-option (click)="refresh_day()">15</ion-option>
+             <ion-option (click)="refresh_day()">16</ion-option>
+             <ion-option (click)="refresh_day()">17</ion-option>
+             <ion-option (click)="refresh_day()">18</ion-option>
+             <ion-option (click)="refresh_day()">19</ion-option>
+             <ion-option (click)="refresh_day()">20</ion-option>
+             <ion-option (click)="refresh_day()">21</ion-option>
+             <ion-option (click)="refresh_day()">22</ion-option>
+             <ion-option (click)="refresh_day()">23</ion-option>
+             <ion-option (click)="refresh_day()">24</ion-option>
+             <ion-option (click)="refresh_day()">25</ion-option>
+             <ion-option (click)="refresh_day()">26</ion-option>
+             <ion-option (click)="refresh_day()">27</ion-option>
+             <ion-option (click)="refresh_day()">28</ion-option>
+             <ion-option (click)="refresh_day()">29</ion-option>
+             <ion-option (click)="refresh_day()">30</ion-option>
+             <ion-option (click)="refresh_day()">31</ion-option>
+             </ion-select> -->
+             <ion-select class = 'placeholder' placeholder="Select One" 
+             (ionBlur)="refresh_day($event)"
+             >
+               <ion-option value="01">01</ion-option>
+               <ion-option value="02">02</ion-option>
+               <ion-option value="03">03</ion-option>
+               <ion-option value="04">04</ion-option>
+               <ion-option value="05">05</ion-option>
+               <ion-option value="06">06</ion-option>
+               <ion-option value="07">07</ion-option>
+               <ion-option value="08">08</ion-option>
+               <ion-option value="09">09</ion-option>
+               <ion-option value="10">10</ion-option>
+               <ion-option value="11">11</ion-option>
+               <ion-option value="12">12</ion-option>
+               <ion-option value="13">13</ion-option>
+               <ion-option value="14">14</ion-option>
+               <ion-option value="15">15</ion-option>
+               <ion-option value="16">16</ion-option>
+               <ion-option value="17">17</ion-option>
+               <ion-option value="18">18</ion-option>
+               <ion-option value="19">19</ion-option>
+               <ion-option value="20">20</ion-option>
+               <ion-option value="21">21</ion-option>
+               <ion-option value="22">22</ion-option>
+               <ion-option value="23">23</ion-option>
+               <ion-option value="24">24</ion-option>
+               <ion-option value="25">25</ion-option>
+               <ion-option value="26">26</ion-option>
+               <ion-option value="27">27</ion-option>
+               <ion-option value="28">28</ion-option>
+               <ion-option value="29">29</ion-option>
+               <ion-option value="30">30</ion-option>
+               <ion-option value="31">31</ion-option>
+             </ion-select>
+          </ion-item>
+       </ion-col>
+       <ion-col>
+          <ion-item>
+             <ion-label>month</ion-label>
+             <!-- <ion-select okText="OK" cancelText="Cancel" [(ngModel)]="month">
+             <ion-option (click)="refresh_month()">01</ion-option>
+             <ion-option (click)="refresh_month()">02</ion-option>
+             <ion-option (click)="refresh_month()">03</ion-option>
+             <ion-option (click)="refresh_month()">04</ion-option>
+             <ion-option (click)="refresh_month()">05</ion-option>
+             <ion-option (click)="refresh_month()">06</ion-option>
+             <ion-option (click)="refresh_month()">07</ion-option>
+             <ion-option (click)="refresh_month()">08</ion-option>
+             <ion-option (click)="refresh_month()">09</ion-option>
+             <ion-option (click)="refresh_month()">10</ion-option>
+             <ion-option (click)="refresh_month()">11</ion-option>
+             <ion-option (click)="refresh_month()">12</ion-option>
+             </ion-select> -->
+             <ion-select class = 'placeholder' placeholder="Select One" 
+             (ionBlur)="refresh_month($event)"
+             >
+               <ion-option value="01">01</ion-option>
+               <ion-option value="02">02</ion-option>
+               <ion-option value="03">03</ion-option>
+               <ion-option value="04">04</ion-option>
+               <ion-option value="05">05</ion-option>
+               <ion-option value="06">06</ion-option>
+               <ion-option value="07">07</ion-option>
+               <ion-option value="08">08</ion-option>
+               <ion-option value="09">09</ion-option>
+               <ion-option value="10">10</ion-option>
+               <ion-option value="11">11</ion-option>
+               <ion-option value="12">12</ion-option>
+             </ion-select>
+          </ion-item>
+       </ion-col>
+       <ion-col>
+        <ion-item>
+           <ion-label>year</ion-label>
+            <!-- <ion-select okText="OK" cancelText="Cancel" [(ngModel)]="year">
+             <ion-option (click)="refresh_year()">2020</ion-option>
+             <ion-option (click)="refresh_year()">2021</ion-option>
+             <ion-option (click)="refresh_year()">2022</ion-option>
+             </ion-select> -->
+             <ion-select class = 'placeholder' placeholder="Select One" 
+             (ionBlur)="refresh_year($event)"
+             >
+               <ion-option value="2020">2020</ion-option>
+               <ion-option value="2021">2021</ion-option>
+               <ion-option value="2023">2023</ion-option>
+             </ion-select>
+        </ion-item>
+     </ion-col>
+    </ion-row>
+  </ion-grid>
+
+    <button ion-item color="primary" (click)="allTasks()" (click)="DateUpdate()" no-lines> 
+     <ion-label *ngIf="alreadyclicked == false" text-center no-lines> Please click HERE if the date is chosen</ion-label>
+     <ion-label *ngIf="alreadyclicked == true" text-center no-lines> Please click HERE to update the date </ion-label>
+    </button>
+
+
+ <ion-item no-lines *ngIf="DateUpdate() == true">
+   <ion-card  *ngFor="let type of types; let i = index">
+     <ion-label> Item's ID: {{i}}.{{this.types[i]}} </ion-label>
+   </ion-card>
+ </ion-item>
+
+ <button ion-item *ngIf = "Vehicle != null">
+  <ion-icon name="car" item-start></ion-icon>
+  Vehicle type: {{Vehicle}}
+ </button>
+
+  <ion-item *ngIf = "click == true">
+
+    <ion-card color="light">
+
+      <ion-card-header>
+        Date: {{this.date}}
+      </ion-card-header>
+
+      <ion-card-header>
+        Current status: Completed <ion-icon name="done-all" item-start></ion-icon>
+      </ion-card-header>
+    
+      <ion-list>
+
+        <button ion-item>
+          <ion-icon name="contact" item-start></ion-icon>
+          Employee's details: 
+        </button>
+
+        <button ion-item *ngIf = "Vehicle != null">
+          <ion-icon name="car" item-start></ion-icon>
+          Vehicle type: {{Vehicle}}
+        </button>
+
+        <button ion-item *ngIf = "Vehicle == null">
+          <ion-icon   name="car" item-start></ion-icon>
+          Vehicle type: N/A
+        </button>
+
+        <button ion-item *ngIf = "EstimatedTime != null">
+          <ion-icon name="clock" item-start></ion-icon>
+          Estimated time for completion: {{EstimatedTime}}
+        </button>
+
+        <button ion-item *ngIf = "EstimatedTime == null">
+          <ion-icon name="clock" item-start></ion-icon>
+          Estimated time for completion: N/A
+        </button>
+    
+    
+        <button ion-item *ngIf = "Instruction != null">
+          <ion-icon name="copy" item-start></ion-icon>
+          Additional instructions: {{Instruction}}
+        </button>
+
+        <button ion-item *ngIf = "Instruction == null">
+          <ion-icon name="copy" item-start></ion-icon>
+          Additional instructions: N/A
+        </button>
+
+        <button ion-item *ngIf = "StartPoint != null">
+          <ion-icon name="navigate" item-start></ion-icon>
+           Starting location: {{StartPoint}}
+        </button>
+
+        <button ion-item *ngIf = "StartPoint == null">
+          <ion-icon name="navigate" item-start></ion-icon>
+           Starting location: N/A
+        </button>
+    
+        <button ion-item *ngIf = "Destination == null">
+          <ion-icon name="git-branch" item-start></ion-icon>
+          Destination: N/A
+        </button>
+
+        <button ion-item *ngIf = "Destination != null">
+          <ion-icon name="git-branch" item-start></ion-icon>
+          Destination: {{Destination}}
+        </button>
+
+        <button ion-item *ngIf = "ReferenceNumber != null">
+          <ion-icon name="link" item-start></ion-icon>
+          Reference number: {{ReferenceNumber}}
+        </button>
+
+        <button ion-item *ngIf = "ReferenceNumber == null">
+          <ion-icon name="link" item-start></ion-icon>
+          Reference number: N/A
+        </button>
+
+        <button ion-item *ngIf = "Service != null">
+          <ion-icon name="construct" item-start></ion-icon>
+          Service type: {{Service}}
+        </button>
+
+        <button ion-item *ngIf = "Service == null">
+          <ion-icon name="construct" item-start></ion-icon>
+          Service type: N/A
+        </button>
+    
+      </ion-list>
+    </ion-card>
+
+  </ion-item>
+
+</ion-content>
+
