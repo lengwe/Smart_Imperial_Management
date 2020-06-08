@@ -117,4 +117,6 @@ export class FleetPage {
   selectedVehicle(event){
     this.vehiclemodel=event.value;
   }
+
+  
 }
