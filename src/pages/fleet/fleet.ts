@@ -24,12 +24,27 @@ export class FleetPage {
   }
 
   addfleet() {
-    if (this.vehicleid!=null) {
-        let task = this.vehicleid;
-        this.fleetlist.push(task);
-        this.fleetname = "";
+    if ((this.vehicleid!=null)&&(this.vehiclemodel!=null)&&(this.charging!=null)) {
+        var list={
+          vehicleid: this.vehicleid,
+          vehiclemodel: this.vehiclemodel,
+          charging: this.charging
+        }
+       this.fleetlist.push(list); 
     }
-    console.log('fleetlist: '+this.fleetlist);
+    console.log('fleetlist: '+this.fleetlist[0].charging);
+    const Fleets = Parse.Object.extend("Fleet");
+    const fleets = new Fleets();
+      fleets.set("VehicleID", this.vehicleid);
+      fleets.set("VehicleModel", this.vehiclemodel);
+      fleets.set("ChargingLevel", this.charging);
+      fleets.save();
+    this.fleetlist.sort(this.compare);
+  }
+  compare(a,b){
+    const charginga = a.charging;
+    const chargingb = b.charging;
+    return dateA - dateB;
   }
   updatefleet(i){
     let alert = this.alertCtrl.create({
