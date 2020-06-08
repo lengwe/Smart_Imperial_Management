@@ -7,14 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ranking</ion-title>
+    <ion-title>Task ranking & vehicle allocating </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h6>Please enter employee's username:</h6>
+  <h6>Please enter employee's username or task dates:</h6>
   <ion-item >
     <ion-input class = 'placeholder' placeholder="Username" [(ngModel)]="username"></ion-input>
   </ion-item>
@@ -110,17 +110,25 @@
         Username
       </ion-col>
       <ion-col >
-          Date
+        Date
       </ion-col>
       <ion-col >
-          Distance
+        Distance
+      </ion-col>
+      <ion-col>
+        Vehicle ID
+      </ion-col>
+      <ion-col>
+        Vehicle Charging Level (%)
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let item of taskinfo; let i = index">
+    <ion-row *ngFor="let item of taskinfo" >
       <ion-col size="6" text-center>  {{item.object}} </ion-col>
       <ion-col class = "long-text-click"  text-center > {{item.username }}</ion-col>
       <ion-col size="6" text-center>  {{item.date }}</ion-col>
       <ion-col class = "long-text" text-center>  {{item.distance }}</ion-col>
+      <ion-col size="6" text-center>  {{item.vehicleid}}</ion-col>
+      <ion-col size="6" text-center>  {{item.charging}}</ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
