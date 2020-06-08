@@ -20,17 +20,17 @@ export class HomePage {
     public toastCtrl: ToastController,
     public geolocation: Geolocation,
   ) {
-    this.getMyLocation();
+    // this.getMyLocation();
   }
 
-  getMyLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      console.log('Current Position', resp.coords);
-      this.geoposition = resp;
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-  }
+  // getMyLocation() {
+  //   this.geolocation.getCurrentPosition().then((resp) => {
+  //     console.log('Current Position', resp.coords);
+  //     this.geoposition = resp;
+  //   }).catch((error) => {
+  //     console.log('Error getting location', error);
+  //   });
+  // }
 
   getClosestUser() {
     let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
@@ -59,9 +59,8 @@ export class HomePage {
       console.log('Error getting closest user', err)
     })
   }
-
   getAllStores() {
-    let query = new Parse.Query('Store');
+    let query = new Parse.Query('Stores');
 
     query.find().then(stores => {
       console.log('Stores', stores);
@@ -70,7 +69,7 @@ export class HomePage {
         return {
           lat: s.get('Location').latitude,
           lng: s.get('Location').longitude,
-          label: s.get('name')
+          label: s.get('Name')
         };
       });
 
@@ -79,7 +78,9 @@ export class HomePage {
       console.log('Error getting closest user', err)
     })
   }
-
+  goTask(){
+    this.navCtrl.push('TaskPage');
+  }
   getClosestStore() {
     let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
     let query = new Parse.Query('Store');
@@ -107,7 +108,6 @@ export class HomePage {
       console.log('Error getting closest user', err)
     })
   }
-
   findMyLocation() {
     let current:Marker = {
       lat: this.geoposition.coords.latitude,
@@ -116,9 +116,6 @@ export class HomePage {
 
     this.navCtrl.push('MapsPage', {data: {current, markers: [current]}});
   }
-
-
-
   logOut() {
     Parse.User.logOut().then((resp) => {
       console.log('Logged out successfully', resp);
@@ -133,31 +130,34 @@ export class HomePage {
       }).present();
     })
   }
-   async gotofleetpage(){
-    let Fleet = Parse.Object.extend('Fleet');
-    let fleet = new Parse.Query(Fleet);
-    const results = await fleet.find();
+//    async gotofleetpage(){
+//     let Fleet = Parse.Object.extend('Fleet');
+//     let fleet = new Parse.Query(Fleet);
+//     const results = await fleet.find();
     
-    let VehicleIDs = [];
-    let VehicleModels = [];
-    let OperatorDescriptions = [];
-    let Services = [];
-    let Caravail = [];
-    let charge = [];
-    for(let i =0; i<results.length; i++){
-      var object = results[i];
-      VehicleIDs[i] = object.get('VehicleID');
-      VehicleModels[i] = object.get('Vehiclemodel');
-      OperatorDescriptions[i] = object.get('OperatorDes');
-      Services[i] = object.get('Service');
-      Caravail[i] = object.get('Availability');
-      charge[i] = object.get('ChargingLevel');
-      console.log(object.charge);
-      }
-    //console.log(VehicleIDs);
-    this.navCtrl.push('FleetPage', {VehicleIDs, VehicleModels, Services, OperatorDescriptions, Caravail, charge
-    });  
-  } 
+//     let VehicleIDs = [];
+//     let VehicleModels = [];
+//     let OperatorDescriptions = [];
+//     let Services = [];
+//     let Caravail = [];
+//     let charge = [];
+//     for(let i =0; i<results.length; i++){
+//       var object = results[i];
+//       VehicleIDs[i] = object.get('VehicleID');
+//       VehicleModels[i] = object.get('Vehiclemodel');
+//       OperatorDescriptions[i] = object.get('OperatorDes');
+//       Services[i] = object.get('Service');
+//       Caravail[i] = object.get('Availability');
+//       charge[i] = object.get('ChargingLevel');
+//       console.log(object.charge);
+//       }
+//     //console.log(VehicleIDs);
+//     this.navCtrl.push('FleetPage', {VehicleIDs, VehicleModels, Services, OperatorDescriptions, Caravail, charge
+//     });  
+//   } 
+  goRanking(){
+    this.navCtrl.push('RankingPage');
+  }
 }
 
 
