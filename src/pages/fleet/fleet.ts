@@ -17,6 +17,7 @@ import Parse from 'parse';
 })
 export class FleetPage {
   fleetlist: Array<any>=[];
+  fleetinfo: Array<any>=[];
   vehiclemodel:string;
   vehicleid:string;
   charging:string;
@@ -40,27 +41,78 @@ export class FleetPage {
       fleets.set("ChargingLevel", this.charging);
       fleets.save();
     this.fleetlist.sort(this.compare);
+    //this.viewfleet();
+  }
+  async viewfleet(){
+    this.fleetinfo=[];
+    let Fleets = Parse.Object.extend("Fleet")
+    let fleets = new Parse.Query(Fleets);
+    //var fleetinfo = [];
+    fleets.notEqualTo("VehicleID","");
+    const results = await fleets.find();
+    for (let i = 0; i < results.length; i++) {
+      var object = results[i];
+      var info ={
+        vehicleid:object.get('VehicleID'),
+        vehiclemodel:object.get('VehicleModel'),
+        charging:object.get('ChargingLevel')
+      };
+      this.fleetinfo.push(info);
+    }
+    this.fleetinfo.sort(this.compare);
   }
   compare(a,b){
-    const charginga = a.charging;
-    const chargingb = b.charging;
-    return dateA - dateB;
+    const charginga=a.charging;
+    const chargingb=b.charging;
+    let comparison=0;
+    if((charginga-chargingb)>0){
+      comparison=-1;
+    }else if((charginga-chargingb)<0){
+      comparison=1;
+    }
+    return comparison;
   }
+
   updatefleet(i){
     let alert = this.alertCtrl.create({
-      title: 'Update Vehicle Info?',
-      message: 'Type in your new info to update.',
-      inputs: [{ name: 'editTask', placeholder: 'Task' }],
+      title: 'Update Vehicle Charging Level',
+      message: 'Please enter current charging level',
+      inputs: [{ name: 'newcharging', placeholder: 'Charging Level' }],
       buttons: [{ text: 'Cancel', role: 'cancel' },
                 { text: 'Update', handler: data => {
-                    this.fleetlist[i] = data.editTask; }
+                    this.fleetinfo[i].charging = data.newcharging;
+                    this.freshfleet(i); }
                 }
                ]
-  });
+    });
   alert.present();
   }
+  async freshfleet(i){
+    let Fleets = Parse.Object.extend('Fleet');
+    let fleets = new Parse.Query(Fleets);
+    fleets.equalTo("VehicleID", this.fleetinfo[i].vehicleid);
+    const result = await fleets.find()
+    console.log('ID: '+result[0].id);
+    await fleets.get(result[0].id)
+    .then((player)=>{
+      player.set('ChargingLevel',this.fleetinfo[i].charging);
+      player.save();
+    });
+  }
   deletefleet(i){
-    this.fleetlist.splice(i, 1);
+    this.destroyfleet(i);
+    this.fleetinfo.splice(i, 1);
+  }
+  async destroyfleet(i){
+    let Fleets = Parse.Object.extend('Fleet');
+    let fleets = new Parse.Query(Fleets);
+    fleets.equalTo("VehicleID", this.fleetinfo[i].vehicleid);
+    const result = await fleets.find()
+    //console.log('ID: '+result[0].id);
+    await fleets.get(result[0].id)
+    .then((player)=>{
+      player.destroy();
+    });
   }
   selectedVehicle(event){
     this.vehiclemodel=event.value;
