@@ -33,7 +33,7 @@ export class RankingPage {
   // taskinfo:string;
   taskinfo: Array<any>=[];
   taskdata: Array<any>=[];
-
+  fleetinfo: Array<any>=[];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     //console.log('Employee username: '+this.username+'year'+this.year+this.month+this.day);
   }
@@ -67,7 +67,7 @@ export class RankingPage {
     const results = await tasks.find();
     for (let i = 0; i < results.length; i++) {
       var object = results[i];
-      console.log(object.id);
+      //console.log(object.id);
       var info ={
       username: object.get('Username'),
       stop    : object.get('StopPoint'),
@@ -79,7 +79,7 @@ export class RankingPage {
       date    : object.get('Date'),
       complete: object.get('Complete'),
       vehicletype : object.get('VehicleType'),
-      vehicleid :object.get('VehicleID'),
+      //vehicleid :object.get('VehicleID'),
       task    : object.get('TaskType'),
       instruction: object.get('Instruction'),
       object  :    object.id
@@ -89,15 +89,57 @@ export class RankingPage {
     if(this.taskinfo.length==0){
       alert('No task found!');
     }else{
-      for(let i=0;i<this.taskinfo.length;i++){
-        console.log('beforesort: '+this.taskinfo[i].distance);
-      }
       this.taskinfo.sort(this.compare);
-      for(let i=0;i<this.taskinfo.length;i++){
-        console.log('aftersort: '+this.taskinfo[i].distance);
-      }
-      //console.log('homepush: '+this.taskinfo.length+' '+ this.taskinfo[0].object+this.taskinfo[0].distance);
     }
+
+
+
+    this.fleetinfo=[];
+    let Fleets = Parse.Object.extend("Fleet")
+    let fleets = new Parse.Query(Fleets);
+    //var fleetinfo = [];
+    fleets.notEqualTo("VehicleID","");
+    const vehicleresults = await fleets.find();
+    for (let i = 0; i < vehicleresults.length; i++) {
+      var object = vehicleresults[i];
+      var vehicleinfo ={
+        vehicleid:object.get('VehicleID'),
+        vehiclemodel:object.get('VehicleModel'),
+        charging:object.get('ChargingLevel')
+      };
+      this.fleetinfo.push(vehicleinfo);
+    }
+    this.fleetinfo.sort(this.chargcompare);
+    // for(let i=0;i<this.fleetinfo.length;i++){
+    //   console.log('chargingcheck: '+this.fleetinfo[i].charging);
+    // }
+    for(let i=0;i<this.taskinfo.length;i++){
+      this.taskinfo[i].vehicleid=this.fleetinfo[i].vehicleid;
+      this.taskinfo[i].charging=this.fleetinfo[i].charging;
+      this.freshtask(i);
+    }
+    
+      //console.log('homepush: '+this.taskinfo.length+' '+ this.taskinfo[0].object+this.taskinfo[0].distance);
+  }
+  freshtask(i){
+    let Tasks = Parse.Object.extend('Task');
+    let tasks = new Parse.Query(Tasks);
+      tasks.get(this.taskinfo[i].object)
+      .then((player)=>{
+        player.set('VehicleID',this.taskinfo[i].vehicleid);
+        player.save();
+      });
+  }
+  chargcompare(a,b){
+    const distancea=a.charging;
+    const distanceb=b.charging;
+    let comparison=0;
+    if((distancea-distanceb)>0){
+      comparison=-1;
+    }else if((distancea-distanceb)<0){
+      comparison=1;
+    }
+    return comparison;
   }
   compare(a,b){
     const distancea=a.distance;
