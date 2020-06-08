@@ -1,0 +1,126 @@
+<!--
+  Generated template for the RankingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ranking</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h6>Please enter employee's username:</h6>
+  <ion-item >
+    <ion-input class = 'placeholder' placeholder="Username" [(ngModel)]="username"></ion-input>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+       <ion-col>
+          <ion-item>
+             <ion-label>day</ion-label>
+             <ion-select class = 'placeholder' placeholder="Select One" 
+             (ionBlur)="refresh_day($event)"
+             >
+               <ion-option value="01">01</ion-option>
+               <ion-option value="02">02</ion-option>
+               <ion-option value="03">03</ion-option>
+               <ion-option value="04">04</ion-option>
+               <ion-option value="05">05</ion-option>
+               <ion-option value="06">06</ion-option>
+               <ion-option value="07">07</ion-option>
+               <ion-option value="08">08</ion-option>
+               <ion-option value="09">09</ion-option>
+               <ion-option value="10">10</ion-option>
+               <ion-option value="11">11</ion-option>
+               <ion-option value="12">12</ion-option>
+               <ion-option value="13">13</ion-option>
+               <ion-option value="14">14</ion-option>
+               <ion-option value="15">15</ion-option>
+               <ion-option value="16">16</ion-option>
+               <ion-option value="17">17</ion-option>
+               <ion-option value="18">18</ion-option>
+               <ion-option value="19">19</ion-option>
+               <ion-option value="20">20</ion-option>
+               <ion-option value="21">21</ion-option>
+               <ion-option value="22">22</ion-option>
+               <ion-option value="23">23</ion-option>
+               <ion-option value="24">24</ion-option>
+               <ion-option value="25">25</ion-option>
+               <ion-option value="26">26</ion-option>
+               <ion-option value="27">27</ion-option>
+               <ion-option value="28">28</ion-option>
+               <ion-option value="29">29</ion-option>
+               <ion-option value="30">30</ion-option>
+               <ion-option value="31">31</ion-option>
+               <ion-option value="">undefined</ion-option>
+             </ion-select>
+          </ion-item>
+       </ion-col>
+       <ion-col>
+          <ion-item>
+             <ion-label>month</ion-label>
+             <ion-select class = 'placeholder' placeholder="Select One" 
+             (ionBlur)="refresh_month($event)"
+             >
+               <ion-option value="01">01</ion-option>
+               <ion-option value="02">02</ion-option>
+               <ion-option value="03">03</ion-option>
+               <ion-option value="04">04</ion-option>
+               <ion-option value="05">05</ion-option>
+               <ion-option value="06">06</ion-option>
+               <ion-option value="07">07</ion-option>
+               <ion-option value="08">08</ion-option>
+               <ion-option value="09">09</ion-option>
+               <ion-option value="10">10</ion-option>
+               <ion-option value="11">11</ion-option>
+               <ion-option value="12">12</ion-option>
+               <ion-option value="">undefined</ion-option> 
+             </ion-select>
+          </ion-item>
+       </ion-col>
+       <ion-col>
+        <ion-item>
+           <ion-label>year</ion-label>
+             <ion-select class = 'placeholder' placeholder="Select One" 
+             (ionBlur)="refresh_year($event)"
+             >
+               <ion-option value="2020">2020</ion-option>
+               <ion-option value="2021">2021</ion-option>
+               <ion-option value="2023">2023</ion-option>
+               <ion-option value="">undefined</ion-option>
+             </ion-select>
+        </ion-item>
+     </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button block margin-top color="secondary" (click)="sortTask()">
+    Sort Task
+  </button>
+  <ion-grid >
+    <ion-row   text-center>
+      <ion-col>
+        Task ID
+      </ion-col>
+      <ion-col >
+        Username
+      </ion-col>
+      <ion-col >
+          Date
+      </ion-col>
+      <ion-col >
+          Distance
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of taskinfo; let i = index">
+      <ion-col size="6" text-center>  {{item.object}} </ion-col>
+      <ion-col class = "long-text-click"  text-center > {{item.username }}</ion-col>
+      <ion-col size="6" text-center>  {{item.date }}</ion-col>
+      <ion-col class = "long-text" text-center>  {{item.distance }}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

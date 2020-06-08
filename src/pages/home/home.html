@@ -16,21 +16,30 @@
   <h2 text-center>Welcome!</h2>
 
   <div text-center class="gps-buttons">
-    <button ion-button block margin-top (click)="findMyLocation()">
+    <!-- <button ion-button block margin-top (click)="findMyLocation()">
       Find my location
     </button>
 
     <button ion-button block margin-top (click)="getClosestUser()">
       Find closest user
-    </button>
+    </button>  -->
 
     <button ion-button block margin-top color="secondary" (click)="getAllStores()">
-      Find all store
+      Map View - Vehicles
     </button>
-
-    <button ion-button block margin-top color="secondary" (click)="getClosestStore()">
+    <button ion-button block margin-top color="secondary" (click)="goTask()">
+      Go Task 
+    </button>
+    <button ion-button block margin-top color="secondary" (click)="goRanking()">
+      Go Ranking
+    </button>
+    <!-- <button ion-button block margin-top color="secondary" (click)="getClosestStore()">
       Find closest store
-    </button>
+    </button>  -->
+
+    <!-- <button ion-button block margin-top color="secondary">
+      Fleet and Charge Management
+    </button> -->
   </div>
   <button ion-button block margin-top color="secondary" (click)="gotofleetpage()">
     Fleet and Charge Management
