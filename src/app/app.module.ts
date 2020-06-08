@@ -16,9 +16,9 @@ import { AgmCoreModule } from '@agm/core';
   ],
   imports: [
     BrowserModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAQEij78AyPJs2k3DkIAOWM2O-SQuD8m8w'
-    }),
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyAQEij78AyPJs2k3DkIAOWM2O-SQuD8m8w'
+    // }),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

@@ -24,6 +24,7 @@ export class MyApp {
         console.log('Logged user', user);
 
         this.rootPage = user ? 'HomePage' : 'LoginPage';
+        // this.rootPage = 'MapsPage';
       }, err => {
         console.log('Error getting logged user');
 

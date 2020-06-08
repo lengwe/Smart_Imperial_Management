@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { GoogleMaps,GoogleMap, GoogleMapOptions } from '@ionic-native/google-maps';
+import { FindValueSubscriber } from 'rxjs/operators/find';
+// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 /**
  * Generated class for the MapsPage page.
@@ -9,12 +11,17 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
  * Ionic pages and navigation.
  */
 
+declare var google:any;
+
 @IonicPage()
 @Component({
   selector: 'page-maps',
   templateUrl: 'maps.html',
 })
 export class MapsPage {
+
+  map:any;
+  @ViewChild('map') mapRef:ElementRef;
   current: Marker;
   markers: Array<Marker> = [];
 
@@ -23,17 +30,44 @@ export class MapsPage {
     this.current = data.current;
     this.markers = data.markers || [];
     console.log('Markers received', data);
+    console.log('Current',this.current);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MapsPage');
+  ionViewDidEnter(){
+    //console.log('ionViewDidLoad MapsPage');
+    this.displayMap();
+  }
+
+  displayMap(){
+    const location = new google.maps.LatLng(51.5074,0.1278);
+    const options = {
+      center:location,
+      zoom:10,
+      streetViewControl: false,
+      mayTypeId:'hybrid'
+
+    };
+
+     this.map = new google.maps.Map(this.mapRef.nativeElement,options);
+    // this.map = GoogleMaps.create('map_canvas', mapOptions);
+    for(var i=0;i<this.markers.length;i++){
+      const mark = new google.maps.LatLng(this.markers[i].lat,this.markers[i].lng);
+      this.addMarker(mark,this.map);
+
+    }
+  }
+
+  addMarker(position,map){
+    return new google.maps.Marker({
+      position,
+      map
+    })
   }
 
 }
 
 export interface Marker {
   lat?: number,
-  lng: number,
+  lng?: number,
   label?: string
-
 }
