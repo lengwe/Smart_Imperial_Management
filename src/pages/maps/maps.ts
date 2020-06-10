@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GoogleMaps,GoogleMap, GoogleMapOptions } from '@ionic-native/google-maps';
-import { FindValueSubscriber } from 'rxjs/operators/find';
+//import { FindValueSubscriber } from 'rxjs/operators/find';
 // import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 /**
