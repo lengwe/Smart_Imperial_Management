@@ -33,11 +33,15 @@
         <ion-option value="NISSAN ENV200">NISSAN ENV200</ion-option>
       </ion-select>
     </ion-item>
+    <h6>Geoposition Latitude and Longtitude: </h6>
+    <ion-item>
+      <input type="number" [(ngModel)]="latitude" placeholder="Enter Latitude"/>
+      <input type="number" [(ngModel)]="longitude" placeholder="Enter Longitude"/>
+    </ion-item>
   </ion-list>
   <div class="item-note" item-end text-center>
     <button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
-    <button ion-button (click)="viewfleet()"><ion-icon name="menu"></ion-icon></button>
-    
+    <button ion-button (click)="viewfleet()"><ion-icon name="menu"></ion-icon></button> 
   </div>
   <div padding>
     <h5 text-center>Current Vehicle List</h5>
@@ -53,6 +57,9 @@
           Vehicle Model
         </ion-col>
         <ion-col >
+          Geoposition
+        </ion-col>
+        <ion-col >
           Edit Vehicle
         </ion-col>
       </ion-row>
@@ -61,6 +68,7 @@
         <ion-col size="6" text-center> {{todo.vehicleid}}</ion-col>
         <ion-col size="6" text-center> {{todo.charging}}</ion-col>
         <ion-col size="6" text-center> {{todo.vehiclemodel}}</ion-col>
+        <ion-col size="6" text-center> Lat: {{todo.position.latitude}}, Lon:{{todo.position.longitude}}</ion-col>
         
         <ion-col class="item-note" item-end>
           <button ion-button clear (click)="updatefleet(i)">
@@ -87,14 +95,15 @@
           Vehicle Model
         </ion-col>
         <ion-col >
-          Edit Vehicle
+          Geoposition
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let todo of fleetlist let i = index">
         
         <ion-col size="6" text-center> {{todo.vehicleid}}</ion-col>
         <ion-col size="6" text-center> {{todo.charging}}</ion-col>
-        <ion-col size="6" text-center> {{todo.vehiclemodel}}</ion-col>     
+        <ion-col size="6" text-center> {{todo.vehiclemodel}}</ion-col> 
+        <ion-col size="6" text-center> Lat:{{todo.latitude}},Lon:{{todo.longitude}}</ion-col>    
       </ion-row>
 		</ion-list>
 	</div>
