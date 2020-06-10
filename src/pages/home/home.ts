@@ -138,6 +138,9 @@ export class HomePage {
   goRanking(){
     this.navCtrl.push('RankingPage');
   }
+  gopowerconsumption(){
+    this.navCtrl.push('PowerPage');
+  }
 }
 
 

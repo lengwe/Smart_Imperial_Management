@@ -7,7 +7,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 //import { HomePage } from '../pages/home/home';
 import { Geolocation } from '@ionic-native/geolocation';
-import { AgmCoreModule } from '@agm/core';
+//import { AgmCoreModule } from '@agm/core';
+//import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AgmCoreModule } from '@agm/core';
     // AgmCoreModule.forRoot({
     //   apiKey: 'AIzaSyAQEij78AyPJs2k3DkIAOWM2O-SQuD8m8w'
     // }),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    //ChartsModule, 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
