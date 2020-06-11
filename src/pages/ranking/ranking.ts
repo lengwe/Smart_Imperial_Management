@@ -113,11 +113,24 @@ export class RankingPage {
     // for(let i=0;i<this.fleetinfo.length;i++){
     //   console.log('chargingcheck: '+this.fleetinfo[i].charging);
     // }
-    for(let i=0;i<this.taskinfo.length;i++){
-      this.taskinfo[i].vehicleid=this.fleetinfo[i].vehicleid;
-      this.taskinfo[i].charging=this.fleetinfo[i].charging;
-      this.freshtask(i);
+    if(this.taskinfo.length>this.fleetinfo.length){
+      for(let i=this.fleetinfo.length;i<this.taskinfo.length;i++){
+        this.taskinfo[i].vehicleid='No Vehicle Available';
+        this.taskinfo[i].charging='No Vehicle Available';
+      }    
+      for(let i=0;i<this.fleetinfo.length;i++){
+        this.taskinfo[i].vehicleid=this.fleetinfo[i].vehicleid;
+        this.taskinfo[i].charging=this.fleetinfo[i].charging;
+        this.freshtask(i);
+      }
+    }else{
+      for(let i=0;i<this.taskinfo.length;i++){
+        this.taskinfo[i].vehicleid=this.fleetinfo[i].vehicleid;
+        this.taskinfo[i].charging=this.fleetinfo[i].charging;
+        this.freshtask(i);
+      }
     }
+
     
       //console.log('homepush: '+this.taskinfo.length+' '+ this.taskinfo[0].object+this.taskinfo[0].distance);
   }
