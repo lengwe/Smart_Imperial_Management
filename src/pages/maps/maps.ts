@@ -31,6 +31,7 @@ export class MapsPage {
     this.markers = data.markers || [];
     console.log('Markers received', data);
     console.log('Current',this.current);
+    // console.log("length",this.markers.length)
   }
 
   ionViewDidEnter(){
@@ -48,7 +49,7 @@ export class MapsPage {
 
     };
 
-     this.map = new google.maps.Map(this.mapRef.nativeElement,options);
+    this.map = new google.maps.Map(this.mapRef.nativeElement,options);
     // this.map = GoogleMaps.create('map_canvas', mapOptions);
     for(var i=0;i<this.markers.length;i++){
       const mark = new google.maps.LatLng(this.markers[i].lat,this.markers[i].lng);
