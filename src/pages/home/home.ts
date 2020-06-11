@@ -12,6 +12,7 @@ import {fromPromise} from "rxjs/observable/fromPromise";
 })
 export class HomePage {
   geoposition: Geoposition;
+  DisplayName : string;
 
   constructor(
     public navCtrl: NavController,
@@ -20,6 +21,28 @@ export class HomePage {
     public geolocation: Geolocation,
   ) {
     // this.getMyLocation();
+    this.DisplayName = this.navParams.get("name");
+  }
+
+  getAllVehicle() {
+    let query = new Parse.Query('ChargingPoint');
+
+    query.find().then(stores => {
+      console.log('ChargingPoint', stores);
+
+      let markers = stores.map(s => {
+        return {
+          lat: s.get('Location').latitude,
+          lng: s.get('Location').longitude,
+          label: s.get('ID')
+        };
+      });
+
+      this.navCtrl.push('MapsPage', {data: {current: markers[0], markers}});
+
+    }, err => {
+      console.log('Error getting Evs', err)
+    })
   }
 
   // getMyLocation() {
@@ -31,90 +54,72 @@ export class HomePage {
   //   });
   // }
 
-  getClosestUser() {
-    let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
-    let query = new Parse.Query(Parse.User);
-    query.near('Location', geoPoint);
-    query.limit(1);
+  // getClosestUser() {
+  //   let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
+  //   let query = new Parse.Query(Parse.User);
+  //   query.near('Location', geoPoint);
+  //   query.limit(1);
 
-    query.find().then(users => {
-      let user = users[0];
-      console.log('Closest user', user);
+  //   query.find().then(users => {
+  //     let user = users[0];
+  //     console.log('Closest user', user);
 
-      let current:Marker = {
-        lat: user.get('Location').latitude,
-        lng: user.get('Location').longitude,
-        label: user.get('name')
-      };
+  //     let current:Marker = {
+  //       lat: user.get('Location').latitude,
+  //       lng: user.get('Location').longitude,
+  //       label: user.get('name')
+  //     };
 
-      let me:Marker = {
-        lat: this.geoposition.coords.latitude,
-        lng: this.geoposition.coords.longitude,
-        label: 'Me'
-      };
+  //     let me:Marker = {
+  //       lat: this.geoposition.coords.latitude,
+  //       lng: this.geoposition.coords.longitude,
+  //       label: 'Me'
+  //     };
 
-      this.navCtrl.push('MapsPage', {data: {current, markers: [me, current]}});
-    }, err => {
-      console.log('Error getting closest user', err)
-    })
-  }
+  //     this.navCtrl.push('MapsPage', {data: {current, markers: [me, current]}});
+  //   }, err => {
+  //     console.log('Error getting closest user', err)
+  //   })
+  // }
 
-  getAllStores() {
-    let query = new Parse.Query('Stores');
 
-    query.find().then(stores => {
-      console.log('Stores', stores);
 
-      let markers = stores.map(s => {
-        return {
-          lat: s.get('Location').latitude,
-          lng: s.get('Location').longitude,
-          label: s.get('Name')
-        };
-      });
+  // getClosestStore() {
+  //   let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
+  //   let query = new Parse.Query('Store');
+  //   query.near('Location', geoPoint);
+  //   query.limit(1);
 
-      this.navCtrl.push('MapsPage', {data: {current: markers[0], markers}});
-    }, err => {
-      console.log('Error getting closest user', err)
-    })
-  }
+  //   query.find().then(stores => {
+  //     let store = stores[0];
+  //     console.log('Closest user', store);
 
-  getClosestStore() {
-    let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
-    let query = new Parse.Query('Store');
-    query.near('Location', geoPoint);
-    query.limit(1);
+  //     let current:Marker = {
+  //       lat: store.get('Location').latitude,
+  //       lng: store.get('Location').longitude,
+  //       label: store.get('name')
+  //     };
 
-    query.find().then(stores => {
-      let store = stores[0];
-      console.log('Closest user', store);
+  //     let me:Marker = {
+  //       lat: this.geoposition.coords.latitude,
+  //       lng: this.geoposition.coords.longitude,
+  //       label: 'Me'
+  //     };
 
-      let current:Marker = {
-        lat: store.get('Location').latitude,
-        lng: store.get('Location').longitude,
-        label: store.get('name')
-      };
+  //     this.navCtrl.push('MapsPage', {data: {current, markers: [me, current]}});
+  //   }, err => {
+  //     console.log('Error getting closest user', err)
+  //   })
+  // }
 
-      let me:Marker = {
-        lat: this.geoposition.coords.latitude,
-        lng: this.geoposition.coords.longitude,
-        label: 'Me'
-      };
+  // findMyLocation() {
+  //   let current:Marker = {
+  //     lat: this.geoposition.coords.latitude,
+  //     lng: this.geoposition.coords.longitude
+  //   };
 
-      this.navCtrl.push('MapsPage', {data: {current, markers: [me, current]}});
-    }, err => {
-      console.log('Error getting closest user', err)
-    })
-  }
-
-  findMyLocation() {
-    let current:Marker = {
-      lat: this.geoposition.coords.latitude,
-      lng: this.geoposition.coords.longitude
-    };
-
-    this.navCtrl.push('MapsPage', {data: {current, markers: [current]}});
-  }
+  //   this.navCtrl.push('MapsPage', {data: {current, markers: [current]}});
+  // }
 
 
 
