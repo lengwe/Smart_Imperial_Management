@@ -8,7 +8,7 @@ import { MyApp } from './app.component';
 //import { HomePage } from '../pages/home/home';
 import { Geolocation } from '@ionic-native/geolocation';
 //import { AgmCoreModule } from '@agm/core';
-//import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     //   apiKey: 'AIzaSyAQEij78AyPJs2k3DkIAOWM2O-SQuD8m8w'
     // }),
     IonicModule.forRoot(MyApp),
-    //ChartsModule, 
+    ChartsModule, 
   ],
   bootstrap: [IonicApp],
   entryComponents: [

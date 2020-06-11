@@ -13,6 +13,8 @@ import {fromPromise} from "rxjs/observable/fromPromise";
 })
 export class HomePage {
   geoposition: Geoposition;
+  chartinfo: Array<any>=[];
+  counterresult:Array<any>=[];
 
   constructor(
     public navCtrl: NavController,
@@ -131,15 +133,50 @@ export class HomePage {
     })
   }
   gotofleetpage(){
-
-    //console.log(VehicleIDs);
     this.navCtrl.push('FleetPage');  
   } 
   goRanking(){
     this.navCtrl.push('RankingPage');
   }
-  gopowerconsumption(){
-    this.navCtrl.push('PowerPage');
+  async gopowerconsumption(){
+    let Powers = Parse.Object.extend("Task")
+    let powers = new Parse.Query(Powers);
+    this.chartinfo = [];
+    this.counterresult=[]
+    powers.equalTo("Complete","Yes");
+    const powersresults = await powers.find();
+    for (let i = 0; i < powersresults.length; i++) {
+      var object = powersresults[i];
+      var powerinfo ={
+        vehicleid:object.get('VehicleID'),
+        vehiclemodel:object.get('VehicleModel'),
+        charging:object.get('ChargingLevel'),
+        date:object.get('Date'),
+        service:object.get('ServiceType'),
+        objectid:object.id,
+
+        day:object.get('Day'),
+        month:object.get('Month'),
+        year:object.get('Year')
+      };
+    this.chartinfo.push(powerinfo);
+    }
+    for(let i=0;i<this.chartinfo.length;i++){
+      let Powers_Charging = Parse.Object.extend("Fleet")
+      let powers_charging = new Parse.Query(Powers_Charging);
+      powers_charging.equalTo("VehicleID",this.chartinfo[i].vehicleid);
+      const chargingresults = await powers_charging.find();
+      for(let i = 0; i < chargingresults.length; i++){
+        var object_charging = chargingresults[i];
+        var powercharging ={
+          vehiclecharging: object_charging.get('ChargingLevel'),
+          vehicleobjectid: object_charging.id
+        }
+      }
+      this.chartinfo[i].charging=powercharging.vehiclecharging;
+    }
+    //console.log('sendcheck: '+this.chartinfo.length);
+    this.navCtrl.push('PowerPage', {Chart: this.chartinfo});
   }
 }
 
