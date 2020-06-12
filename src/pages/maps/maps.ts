@@ -1,7 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GoogleMaps,GoogleMap, GoogleMapOptions } from '@ionic-native/google-maps';
-import { FindValueSubscriber } from 'rxjs/operators/find';
+import { Store } from '@ngrx/store';
+//import { FindValueSubscriber } from 'rxjs/operators/find';
 // import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 /**
@@ -13,7 +14,9 @@ import { FindValueSubscriber } from 'rxjs/operators/find';
 
 declare var google:any;
 
-@IonicPage()
+@IonicPage({
+  defaultHistory:['HomePage']
+})
 @Component({
   selector: 'page-maps',
   templateUrl: 'maps.html',
@@ -25,13 +28,19 @@ export class MapsPage {
   current: Marker;
   markers: Array<Marker> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    let data = this.navParams.get("data");
-    this.current = data.current;
-    this.markers = data.markers || [];
-    console.log('Markers received', data);
-    console.log('Current',this.current);
-    // console.log("length",this.markers.length)
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public store: Store<any>
+    // private launchNavigator: LaunchNavigator
+    ) {
+    // let data = this.navParams.get("data");
+    // this.current = data.current;
+    // this.markers = data.markers || [];
+    this.store.select('ManagementReducer').subscribe(state => {
+      this.markers = state.vehicle_info
+    });
+    console.log('Markers received', this.markers);
   }
 
   ionViewDidEnter(){
@@ -52,16 +61,35 @@ export class MapsPage {
     this.map = new google.maps.Map(this.mapRef.nativeElement,options);
     // this.map = GoogleMaps.create('map_canvas', mapOptions);
     for(var i=0;i<this.markers.length;i++){
+      var contentstring = '<h2><b>Vehicle Information</b></h2>' + '<p><b>Vehicle ID</b>: ' + this.markers[i].label +'</p>'
+      +'<p><b>Charging Level</b>: ' + this.markers[i].ChargingLevel +'%'+'</p>'
+      +'<p><b>Vehicle Model</b>: ' + this.markers[i].Model +'</p>';
+
       const mark = new google.maps.LatLng(this.markers[i].lat,this.markers[i].lng);
-      this.addMarker(mark,this.map);
+      var infowindow = new google.maps.InfoWindow({
+        content: contentstring,
+      })
+
+
+      var marker = this.addMarker(mark,this.map,contentstring);
+      google.maps.event.addListener(marker, 'click', function(){
+
+        infowindow.setContent(this.info);
+        infowindow.open(this.map, this);
+      })
 
     }
   }
 
-  addMarker(position,map){
+  addMarker(position,map,content){
+    // let url = "http://maps.google.com/mapfiles/ms/icons/";
+    // url += colour + "-dot.png";
+
     return new google.maps.Marker({
       position,
-      map
+      map,
+      info: content,
+      icon: "http://maps.google.com/mapfiles/kml/pal4/icon15.png"
     })
   }
 
@@ -70,5 +98,7 @@ export class MapsPage {
 export interface Marker {
   lat?: number,
   lng?: number,
-  label?: string
+  label?: string,
+  ChargingLevel?:string,
+  Model?:string
 }
