@@ -17,7 +17,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      Parse.initialize("XiiCvvh3t61q2vMSQornvYKPPsPcTszpsMB0tpbT", "UMEsWQpchNtjV5XCyaA6uXaZOAiXO5x73vObhzKv");
+      Parse.initialize("cseOe89I1Ky4smtLePWkF5iJCzkhUWeFizpVVSeS", "B6BRsUExTqfHmmwCaCElb4UE82CGB7AjY5ycD308");
       Parse.serverURL = 'https://parseapi.back4app.com/';
 
       Parse.User.currentAsync().then(user => {

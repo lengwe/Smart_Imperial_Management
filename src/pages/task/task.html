@@ -1,0 +1,170 @@
+<!--
+  Generated template for the TaskPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!doctype html>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Timetable of tasks</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item no-lines>
+    <ion-list-header class = "button_container" color="danger" *ngIf = "(month == 'monkey') || (year == '2019')" text-center no-lines>
+      Please choose the full date for all tasks to be displayed
+    </ion-list-header>
+    <ion-list-header  class = "button_container" color="secondary" *ngIf = "(month != ('monkey' || null) && year != ('2019' || null) && day == ('0' || null))" text-center no-lines>
+      Please choose the full date for all tasks to be displayed
+    </ion-list-header>
+    <ion-list-header  class = "button_container" color="secondary" *ngIf = "(month != ('monkey' || null) && year != ('2019' || null) && day != ('0' || null))" text-center no-lines>
+      Exact date chosen
+    </ion-list-header>
+  </ion-item>
+
+  <ion-grid>
+    <ion-row>
+       <ion-col>
+          <ion-item class = "button_container">
+             <ion-label>day</ion-label>
+             <ion-select okText="OK" cancelText="Cancel" [(ngModel)]="day">
+             <ion-option (click)="refresh_day()">01</ion-option>
+             <ion-option (click)="refresh_day()">02</ion-option>
+             <ion-option (click)="refresh_day()">03</ion-option>
+             <ion-option (click)="refresh_day()">04</ion-option>
+             <ion-option (click)="refresh_day()">05</ion-option>
+             <ion-option (click)="refresh_day()">06</ion-option>
+             <ion-option (click)="refresh_day()">07</ion-option>
+             <ion-option (click)="refresh_day()">08</ion-option>
+             <ion-option (click)="refresh_day()">09</ion-option>
+             <ion-option (click)="refresh_day()">10</ion-option>
+             <ion-option (click)="refresh_day()">11</ion-option>
+             <ion-option (click)="refresh_day()">12</ion-option>
+             <ion-option (click)="refresh_day()">13</ion-option>
+             <ion-option (click)="refresh_day()">14</ion-option>
+             <ion-option (click)="refresh_day()">15</ion-option>
+             <ion-option (click)="refresh_day()">16</ion-option>
+             <ion-option (click)="refresh_day()">17</ion-option>
+             <ion-option (click)="refresh_day()">18</ion-option>
+             <ion-option (click)="refresh_day()">19</ion-option>
+             <ion-option (click)="refresh_day()">20</ion-option>
+             <ion-option (click)="refresh_day()">21</ion-option>
+             <ion-option (click)="refresh_day()">22</ion-option>
+             <ion-option (click)="refresh_day()">23</ion-option>
+             <ion-option (click)="refresh_day()">24</ion-option>
+             <ion-option (click)="refresh_day()">25</ion-option>
+             <ion-option (click)="refresh_day()">26</ion-option>
+             <ion-option (click)="refresh_day()">27</ion-option>
+             <ion-option (click)="refresh_day()">28</ion-option>
+             <ion-option (click)="refresh_day()">29</ion-option>
+             <ion-option (click)="refresh_day()">30</ion-option>
+             <ion-option (click)="refresh_day()">31</ion-option>
+             </ion-select>
+          </ion-item>
+       </ion-col>
+       <ion-col>
+          <ion-item class = "button_container">
+             <ion-label>month</ion-label>
+             <ion-select okText="OK" cancelText="Cancel" [(ngModel)]="month">
+             <ion-option (click)="refresh_month()">01</ion-option>
+             <ion-option (click)="refresh_month()">02</ion-option>
+             <ion-option (click)="refresh_month()">03</ion-option>
+             <ion-option (click)="refresh_month()">04</ion-option>
+             <ion-option (click)="refresh_month()">05</ion-option>
+             <ion-option (click)="refresh_month()">06</ion-option>
+             <ion-option (click)="refresh_month()">07</ion-option>
+             <ion-option (click)="refresh_month()">08</ion-option>
+             <ion-option (click)="refresh_month()">09</ion-option>
+             <ion-option (click)="refresh_month()">10</ion-option>
+             <ion-option (click)="refresh_month()">11</ion-option>
+             <ion-option (click)="refresh_month()">12</ion-option>
+             </ion-select>
+          </ion-item>
+       </ion-col>
+       <ion-col>
+        <ion-item>
+           <ion-label>year</ion-label>
+            <ion-select okText="OK" cancelText="Cancel" [(ngModel)]="year">
+             <ion-option (click)="refresh_year()">2020</ion-option>
+             <ion-option (click)="refresh_year()">2021</ion-option>
+             <ion-option (click)="refresh_year()">2022</ion-option>
+             </ion-select>
+        </ion-item>
+     </ion-col>
+    </ion-row>
+  </ion-grid>
+
+    <button class = "button_container" *ngIf= "(day != '0') && (month != 'monkey') && (year != '2019')" ion-item color="primary" (click)="allTasks()" no-lines>
+     <ion-label *ngIf="alreadyclicked == false" text-center no-lines> Please click HERE if the date is chosen</ion-label>
+     <ion-label *ngIf="alreadyclicked == true" text-center no-lines> Please click HERE to update the date </ion-label>
+    </button>
+     <!-- ONE WITHOUT ALERT -->
+
+    <button  class = "button_container" *ngIf= "(day == '0') || (month == 'monkey') || (year == '2019')" ion-item color="primary" (click)="presentAlert()" no-lines>
+      <ion-label *ngIf="alreadyclicked == false" text-center no-lines> Please click HERE if the date is chosen</ion-label>
+      <ion-label *ngIf="alreadyclicked == true" text-center no-lines> Please click HERE to update the date </ion-label>
+     </button>
+     <!-- ONE FOR ALERT -->
+
+
+ <ion-item no-lines>
+   <ion-card no-lines *ngFor="let type of types; let i = index" color="light">
+
+    <ion-card-header color="danger" *ngIf="this.objects[i+8*i+0]=='No'">
+      Date: {{this.DisplayDate}}
+    </ion-card-header>
+
+    <ion-card-header color="secondary" *ngIf="this.objects[i+8*i+0]=='Yes'">
+      Date: {{this.DisplayDate}}
+    </ion-card-header>
+
+    <ion-card-header color="danger" *ngIf="this.objects[i+8*i+0]=='No'">
+      <ion-icon name="checkmark-circle-outline"item-start></ion-icon>
+      Completion status: {{this.objects[i+8*i+0]}}
+    </ion-card-header>
+
+    <ion-card-header color="secondary" *ngIf="this.objects[i+8*i+0]=='Yes'">
+      <ion-icon name="checkmark-circle-outline"item-start></ion-icon>
+      Completion status: {{this.objects[i+8*i+0]}}
+    </ion-card-header>
+
+     <ion-card-header>
+      <ion-icon name="contact" item-start></ion-icon>
+       Employee's username: {{this.objects[i+8*i+1]}}
+     </ion-card-header>
+
+     <ion-card-header>
+      <ion-icon name="clock" item-start></ion-icon>
+      Estimated time for completion: {{this.objects[i+8*i+2]}}
+    </ion-card-header>
+
+    <ion-card-header>
+      <ion-icon name="car" item-start></ion-icon>
+      Vehicle type and ID: {{this.objects[i+8*i+3]}} | {{this.objects[i+8*i+4]}}
+    </ion-card-header>
+
+    <ion-card-header>
+      <ion-icon name="navigate" item-start></ion-icon>
+       Stops: {{this.objects[i+8*i+5]}}
+    </ion-card-header>
+
+    <ion-card-header>
+      <ion-icon name="git-branch" item-start></ion-icon>
+      Destination: {{this.objects[i+8*i+6]}}
+    </ion-card-header>
+
+    <ion-card-header>
+      <ion-icon name="link" item-start></ion-icon>
+      Reference number: {{this.objects[i+8*i+7]}}
+    </ion-card-header>
+
+    <ion-card-header>
+      <ion-icon name="construct" item-start></ion-icon>
+      Service type: {{this.objects[i+8*i+8]}}
+    </ion-card-header>
+
+   </ion-card>
+ </ion-item>
+</ion-content>
