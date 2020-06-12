@@ -7,13 +7,14 @@
         Log out
       </button>
     </ion-buttons>
+
   </ion-navbar>
 
 
 </ion-header>
 
 <ion-content padding>
-  <h2 text-center >Welcome, {{DisplayName}}!</h2>
+  <h2 text-center >Welcome, {{username}}!</h2>
 
   <div text-center class="gps-buttons">
     <!-- <button ion-button block margin-top (click)="findMyLocation()">
@@ -24,10 +25,19 @@
       Find closest user
     </button>  -->
 
-    <button ion-button block margin-top color="secondary" (click)="getAllVehicle()">
+      <button ion-button block margin-top color="secondary" (click)="profile()" >
+        Profile
+      </button>
+
+    <button ion-button block margin-top color="background" (click)="getAllVehicle()">
       Map View - Vehicles
     </button>
-
+    <button ion-button block margin-top color="background" (click)="goTask()">
+      View Tasks
+    </button>
+    <button ion-button block margin-top color="background" (click)="goRanking()">
+      Allocate Vehicles
+    </button>
     <!-- <button ion-button block margin-top color="secondary" (click)="getClosestStore()">
       Find closest store
     </button>  -->
@@ -35,5 +45,14 @@
     <!-- <button ion-button block margin-top color="secondary">
       Fleet and Charge Management
     </button> -->
+    <button ion-button block margin-top color="background" (click)="gotofleetpage()">
+      Fleet Management
+    </button>
+    <button ion-button block margin-top color="background" (click)="gopowerconsumption()">
+      View Onsite Power Consumptions
+    </button>
+
   </div>
+
+
 </ion-content>

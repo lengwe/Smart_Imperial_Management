@@ -1,48 +1,40 @@
+import { FleetPage } from './../fleet/fleet';
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Geolocation, Geoposition} from "@ionic-native/geolocation";
 import Parse from 'parse';
 import {Marker} from "../maps/maps";
 import {fromPromise} from "rxjs/observable/fromPromise";
+import { Store, ActionReducer } from '@ngrx/store';
 
-@IonicPage()
+@IonicPage({
+  defaultHistory:['HomePage']
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
 export class HomePage {
   geoposition: Geoposition;
-  DisplayName : string;
+  chartinfo: Array<any>=[];
+  counterresult:Array<any>=[];
+  username: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public geolocation: Geolocation,
+    private store: Store<any>
   ) {
     // this.getMyLocation();
-    this.DisplayName = this.navParams.get("name");
-  }
-
-  getAllVehicle() {
-    let query = new Parse.Query('ChargingPoint');
-
-    query.find().then(stores => {
-      console.log('ChargingPoint', stores);
-
-      let markers = stores.map(s => {
-        return {
-          lat: s.get('Location').latitude,
-          lng: s.get('Location').longitude,
-          label: s.get('ID')
-        };
-      });
-
-      this.navCtrl.push('MapsPage', {data: {current: markers[0], markers}});
-
-    }, err => {
-      console.log('Error getting Evs', err)
-    })
+    let data  = Parse.User.current();
+    this.username = data.get("username");
+    console.log("username: ", this.username);
+    this.store.dispatch({
+      type: "LOGIN",
+      payload: this.username
+    });
   }
 
   // getMyLocation() {
@@ -53,75 +45,69 @@ export class HomePage {
   //     console.log('Error getting location', error);
   //   });
   // }
+  async profile() {
+    let Managers = Parse.Object.extend('Manager')
+    let managers = new Parse.Query(Managers);
+    managers.equalTo("Username", this.username);
+    const results = await managers.find();
+    // for (let i = 0; i < results.length; i++) {
+    //   var object = results[i];
+    //   // console.log("hahah",results.length);
+    // }
+    // console.log("hahah",typeof results);
+    var info = {Title:results[0].get('Title'),
+                FirstName:results[0].get('FirstName'),
+                LastName: results[0].get('LastName'),
+                Gender: results[0].get('Gender'),
+                // ServiceDepartment: results[0].get('ServiceDepartment'),
+                ManagerID: results[0].get('ManagerID'),
+                Username: results[0].get('Username'),
+                Password: results[0].get('Password'),
+                PhoneNumber: results[0].get('PhoneNumber'),
+                EmailAddress: results[0].get('EmailAddress'),
 
-  // getClosestUser() {
-  //   let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
-  //   let query = new Parse.Query(Parse.User);
-  //   query.near('Location', geoPoint);
-  //   query.limit(1);
+              };
+    this.store.dispatch({
+      type: "PROFILE",
+      payload: info
+    });
 
-  //   query.find().then(users => {
-  //     let user = users[0];
-  //     console.log('Closest user', user);
+    this.navCtrl.push('ProfilePage');
 
-  //     let current:Marker = {
-  //       lat: user.get('Location').latitude,
-  //       lng: user.get('Location').longitude,
-  //       label: user.get('name')
-  //     };
+    //alert(object.get('Username'));
+  }
 
-  //     let me:Marker = {
-  //       lat: this.geoposition.coords.latitude,
-  //       lng: this.geoposition.coords.longitude,
-  //       label: 'Me'
-  //     };
+  getAllVehicle() {
+    let query = new Parse.Query('Fleet');
 
-  //     this.navCtrl.push('MapsPage', {data: {current, markers: [me, current]}});
-  //   }, err => {
-  //     console.log('Error getting closest user', err)
-  //   })
-  // }
+    query.find().then(vehicles => {
+      console.log('Vehicle', vehicles);
 
+      let fleet = vehicles.map(v => {
+        return {
+          lat: v.get('Position').latitude,
+          lng: v.get('Position').longitude,
+          label: v.get('VehicleID'),
+          ChargingLevel: v.get('ChargingLevel'),
+          Model: v.get('VehicleModel')
+        };
+      });
 
+      this.store.dispatch({
+        type:"VEHICLE",
+        payload:fleet
+      });
 
-  // getClosestStore() {
-  //   let geoPoint = new Parse.GeoPoint(this.geoposition.coords.latitude, this.geoposition.coords.longitude);
-  //   let query = new Parse.Query('Store');
-  //   query.near('Location', geoPoint);
-  //   query.limit(1);
+      this.navCtrl.push('MapsPage');
 
-  //   query.find().then(stores => {
-  //     let store = stores[0];
-  //     console.log('Closest user', store);
+    }, err => {
+      console.log('Error getting Evs', err)
+    })
+  }
 
-  //     let current:Marker = {
-  //       lat: store.get('Location').latitude,
-  //       lng: store.get('Location').longitude,
-  //       label: store.get('name')
-  //     };
-
-  //     let me:Marker = {
-  //       lat: this.geoposition.coords.latitude,
-  //       lng: this.geoposition.coords.longitude,
-  //       label: 'Me'
-  //     };
-
-  //     this.navCtrl.push('MapsPage', {data: {current, markers: [me, current]}});
-  //   }, err => {
-  //     console.log('Error getting closest user', err)
-  //   })
-  // }
-
-  // findMyLocation() {
-  //   let current:Marker = {
-  //     lat: this.geoposition.coords.latitude,
-  //     lng: this.geoposition.coords.longitude
-  //   };
-
-  //   this.navCtrl.push('MapsPage', {data: {current, markers: [current]}});
-  // }
-
-
+  goTask(){
+    this.navCtrl.push('TaskPage');
+  }
 
   logOut() {
     Parse.User.logOut().then((resp) => {
@@ -137,4 +123,61 @@ export class HomePage {
       }).present();
     })
   }
+
+  gotofleetpage(){
+    this.navCtrl.push('FleetPage');
+  }
+
+  goRanking(){
+    this.navCtrl.push('RankingPage');
+  }
+
+  async gopowerconsumption(){
+    let Powers = Parse.Object.extend("Task")
+    let powers = new Parse.Query(Powers);
+    // this.chartinfo = [];
+    // this.counterresult=[]
+    powers.equalTo("Complete","Yes");
+    const powersresults = await powers.find();
+    for (let i = 0; i < powersresults.length; i++) {
+      var object = powersresults[i];
+      var powerinfo ={
+        vehicleid:object.get('VehicleID'),
+        vehiclemodel:object.get('VehicleModel'),
+        charging:object.get('ChargingLevel'),
+        date:object.get('Date'),
+        service:object.get('ServiceType'),
+        objectid:object.id,
+
+        day:object.get('Day'),
+        month:object.get('Month'),
+        year:object.get('Year')
+      };
+      this.chartinfo.push(powerinfo);
+    }
+
+    for(let i=0;i<this.chartinfo.length;i++){
+      let Powers_Charging = Parse.Object.extend("Fleet")
+      let powers_charging = new Parse.Query(Powers_Charging);
+      powers_charging.equalTo("VehicleID",this.chartinfo[i].vehicleid);
+      const chargingresults = await powers_charging.find();
+      for(let i = 0; i < chargingresults.length; i++){
+        var object_charging = chargingresults[i];
+        var powercharging ={
+          vehiclecharging: object_charging.get('ChargingLevel'),
+          vehicleobjectid: object_charging.id
+        }
+      }
+      this.chartinfo[i].charging=powercharging.vehiclecharging;
+    }
+    //console.log('sendcheck: '+this.chartinfo.length);
+    this.store.dispatch({
+      type: "CHART",
+      payload: this.chartinfo
+    });
+    this.navCtrl.push('PowerPage');
+  }
 }
+
+
+
