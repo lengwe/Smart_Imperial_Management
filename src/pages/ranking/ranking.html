@@ -14,10 +14,23 @@
 
 
 <ion-content padding>
-  <h6>Please enter employee's username or task dates:</h6>
+  <h6>Please enter employee's username, service department and task dates:</h6>
   <ion-item >
     <ion-input class = 'placeholder' placeholder="Username" [(ngModel)]="username"></ion-input>
   </ion-item>
+  <ion-item color='background'>
+    <ion-label>Service Department:</ion-label>
+    <ion-select class = 'placeholder' multiple="False"
+    (ionBlur)="refresh_service($event)"
+    >
+      <ion-option value="Caretaking">Caretaking</ion-option>
+      <ion-option value="Disability & Home Improvement">Disability & Home Improvement </ion-option>
+      <ion-option value="Repairs & Investment">Repairs & Investment </ion-option>
+      <ion-option value="Safer Spaces">Safer Spaces </ion-option>
+      <ion-option value="Street Services">Street Services</ion-option>
+    </ion-select>
+  </ion-item>
+
   <ion-grid>
     <ion-row>
        <ion-col>
@@ -115,6 +128,9 @@
       <ion-col >
         Distance
       </ion-col>
+      <ion-col >
+        Service Department
+      </ion-col>
       <ion-col>
         Vehicle ID
       </ion-col>
@@ -127,6 +143,7 @@
       <ion-col class = "long-text-click"  text-center > {{item.username }}</ion-col>
       <ion-col size="6" text-center>  {{item.date }}</ion-col>
       <ion-col class = "long-text" text-center>  {{item.distance }}</ion-col>
+      <ion-col class = "long-text" text-center>  {{item.service }}</ion-col>
       <ion-col size="6" text-center>  {{item.vehicleid}}</ion-col>
       <ion-col size="6" text-center>  {{item.charging}}</ion-col>
     </ion-row>

@@ -32,6 +32,9 @@ export class RankingPage {
   vehicleid:string;
   complete:string;
   object:string;
+
+  servicetype:any=[];
+  
   // taskinfo:string;
   taskinfo: Array<any>=[];
   taskdata: Array<any>=[];
@@ -45,7 +48,7 @@ export class RankingPage {
   }
   async sortTask(){
     this.taskinfo=[];
-    console.log('Employee username: '+this.username+' sort date: '+this.year+this.month+this.day);
+    //console.log('Employee username: '+this.username+' sort date: '+this.year+this.month+this.day);
     let Tasks = Parse.Object.extend('Task')
     let tasks = new Parse.Query(Tasks);
 
@@ -59,14 +62,19 @@ export class RankingPage {
     }
     if(this.month!=""){
       tasks.equalTo("Month", this.month);
-      //console.log('month');
+      console.log('month'+this.month);
     }
     if(this.year!=""){
       tasks.equalTo("Year", this.year);
       //console.log('year');
     }
+    if(this.servicetype!=""){
+      //this.servicetype=this.serviceoriginal;
+      tasks.equalTo("ServiceType", this.servicetype);
+    }
 
     const results = await tasks.find();
+    console.log('checkresult:'+results.length);
     for (let i = 0; i < results.length; i++) {
       var object = results[i];
       //console.log(object.id);
@@ -94,20 +102,21 @@ export class RankingPage {
       this.taskinfo.sort(this.compare);
     }
 
-
-
     this.fleetinfo=[];
-    let Fleets = Parse.Object.extend("Fleet")
+    let Fleets = Parse.Object.extend("FleetT")
     let fleets = new Parse.Query(Fleets);
-    //var fleetinfo = [];
     fleets.notEqualTo("VehicleID","");
+    if(this.servicetype!=""){
+      fleets.equalTo("ServiceType", this.servicetype);
+    }
     const vehicleresults = await fleets.find();
     for (let i = 0; i < vehicleresults.length; i++) {
       var object = vehicleresults[i];
       var vehicleinfo ={
         vehicleid:object.get('VehicleID'),
         vehiclemodel:object.get('VehicleModel'),
-        charging:object.get('ChargingLevel')
+        charging:object.get('ChargingLevel'),
+        servicetype:object.get('ServiceType')
       };
       this.fleetinfo.push(vehicleinfo);
     }
@@ -169,16 +178,19 @@ export class RankingPage {
   }
   refresh_year(event){
     this.year = event.value;
-    console.log('year: '+this.year);
+    //console.log('year: '+this.year);
   }
 
   refresh_month(event){
     this.month = event.value;
-    console.log('month: '+this.month);
+    //console.log('month: '+this.month);
   }
 
   refresh_day(event){
     this.day = event.value;
-    console.log('day: '+this.day);
+    //console.log('day: '+this.day);
+  }
+  refresh_service(event) {
+    this.servicetype =event.value
   }
 }
