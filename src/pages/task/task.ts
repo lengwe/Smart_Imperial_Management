@@ -4,12 +4,7 @@ import { AlertController } from 'ionic-angular';
 import Parse from 'parse';
 import {fromPromise} from "rxjs/observable/fromPromise";
 import { stringify } from '@angular/core/src/util';
-/**
- * Generated class for the TaskPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 @IonicPage({
   defaultHistory:['HomePage']
 })
@@ -139,10 +134,9 @@ export class TaskPage {
       this.objects.push(this.object.get('StopPoint'));
       this.objects.push(this.object.get('Destination'));
       this.objects.push(this.object.get('ReferenceNumber'));
-      this.objects.push(this.object.get('TaskType'));
+      this.objects.push(this.object.get('ServiceType'));
       //this.objects.push(this.object.get('Instruction'));
       //this.objects.push(this.object.get('Distance'));
     }
   }
 }
-//enableProdMode();

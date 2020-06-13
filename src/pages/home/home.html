@@ -1,33 +1,23 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Smart Imperial</ion-title>
-
+    <ion-buttons right>
+      <button ion-button (click)="profile()">
+        Profile
+      </button>
+    </ion-buttons>
     <ion-buttons right>
       <button ion-button (click)="logOut()">
         Log out
       </button>
     </ion-buttons>
-
   </ion-navbar>
-
-
 </ion-header>
 
 <ion-content padding>
   <h2 text-center >Welcome, {{username}}!</h2>
 
   <div text-center class="gps-buttons">
-    <!-- <button ion-button block margin-top (click)="findMyLocation()">
-      Find my location
-    </button>
-
-    <button ion-button block margin-top (click)="getClosestUser()">
-      Find closest user
-    </button>  -->
-
-      <button ion-button block margin-top color="secondary" (click)="profile()" >
-        Profile
-      </button>
 
     <button ion-button block margin-top color="background" (click)="getAllVehicle()">
       Map View - Vehicles
@@ -38,13 +28,6 @@
     <button ion-button block margin-top color="background" (click)="goRanking()">
       Allocate Vehicles
     </button>
-    <!-- <button ion-button block margin-top color="secondary" (click)="getClosestStore()">
-      Find closest store
-    </button>  -->
-
-    <!-- <button ion-button block margin-top color="secondary">
-      Fleet and Charge Management
-    </button> -->
     <button ion-button block margin-top color="background" (click)="gotofleetpage()">
       Fleet Management
     </button>
