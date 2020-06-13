@@ -27,17 +27,19 @@ export class FleetPage {
   geoposition:any;
   point: any;
   position: any;
+  servicetype:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
-  addfleet() {
+  async addfleet() {
 
     if ((this.vehicleid!=null)&&(this.vehiclemodel!=null)&&(this.charging!=null)&&
-        (this.latitude!=null)&&(this.longitude!=null)) {
+        (this.latitude!=null)&&(this.longitude!=null)&&(this.servicetype!=null)) {
         var list={
           vehicleid: this.vehicleid,
           vehiclemodel: this.vehiclemodel,
           charging: this.charging,
+          servicetype: this.servicetype,
           latitude:this.latitude,
           longitude:this.longitude
         }
@@ -49,13 +51,30 @@ export class FleetPage {
       longitude: this.longitude});
     //console.log('fleetlist: '+this.point.latitude);
     const Fleets = Parse.Object.extend("FleetT");
-    const fleets = new Fleets();
+    let fleets = new Parse.Query(Fleets);
+
+    fleets.equalTo("VehicleID",this.vehicleid);
+    const results = await fleets.find();
+    if(results.length>0){
+      await fleets.get(results[0].id)
+      .then((player)=>{
+        player.set('VehicleModel',this.vehiclemodel);
+        player.set('ChargingLevel',this.charging);
+        player.set('GeoPosition',this.point);
+        player.set('ServiceType',this.servicetype);
+        player.save();
+      });
+    }else{
+      fleets = new Fleets();
       fleets.set("VehicleID", this.vehicleid);
       fleets.set("VehicleModel", this.vehiclemodel);
       fleets.set("ChargingLevel", this.charging);
       fleets.set("GeoPosition", this.point );
+      fleets.set("ServiceType", this.servicetype);
       fleets.save();
     this.fleetlist.sort(this.compare);
+    }
+
   }
   async viewfleet(){
     this.fleetinfo=[];
@@ -70,6 +89,7 @@ export class FleetPage {
         vehicleid:object.get('VehicleID'),
         vehiclemodel:object.get('VehicleModel'),
         charging:object.get('ChargingLevel'),
+        servicetype:object.get('ServiceType'),
         position:object.get('GeoPosition')
       };
       //console.log('checkposition:'+info.position.latitude);
@@ -105,8 +125,8 @@ export class FleetPage {
                     this.position = new Parse.GeoPoint({
                       latitude: data.newlatitude, 
                       longitude: data.newlongitude});
-                    console.log('checkposition0: '+data.newlatitude);
-                    console.log('checkposition1: '+this.position.latitude);
+                    //console.log('checkposition0: '+data.newlatitude);
+                    //console.log('checkposition1: '+this.position.latitude);
                   }
                   this.freshfleet(i);       
                   }
@@ -121,8 +141,8 @@ export class FleetPage {
     }else{
       this.fleetinfo[i].position=this.position;
     }
-    console.log('checkposition21: '+this.fleetinfo[i].position.latitude);
-    console.log('checkposition2: '+this.position.latitude);
+    //console.log('checkposition21: '+this.fleetinfo[i].position.latitude);
+    //console.log('checkposition2: '+this.position.latitude);
     let Fleets = Parse.Object.extend('FleetT');
     let fleets = new Parse.Query(Fleets);
     fleets.equalTo("VehicleID", this.fleetinfo[i].vehicleid);
@@ -145,7 +165,7 @@ export class FleetPage {
     let fleets = new Parse.Query(Fleets);
     fleets.equalTo("VehicleID", this.fleetinfo[i].vehicleid);
     const result = await fleets.find()
-    //console.log('ID: '+result[0].id);
+    console.log('ID: '+result[0].id);
     await fleets.get(result[0].id)
     .then((player)=>{
       player.destroy();
@@ -153,6 +173,9 @@ export class FleetPage {
   }
   selectedVehicle(event){
     this.vehiclemodel=event.value;
+  }
+  selectedService(event){
+    this.servicetype=event.value;
   }
 
   
