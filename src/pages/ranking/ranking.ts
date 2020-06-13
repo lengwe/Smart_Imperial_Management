@@ -89,7 +89,7 @@ export class RankingPage {
       date    : object.get('Date'),
       complete: object.get('Complete'),
       vehicletype : object.get('VehicleType'),
-      //vehicleid :object.get('VehicleID'),
+      vehicleid :object.get('VehicleID'),
       task    : object.get('TaskType'),
       instruction: object.get('Instruction'),
       object  :    object.id
@@ -128,16 +128,21 @@ export class RankingPage {
       for(let i=this.fleetinfo.length;i<this.taskinfo.length;i++){
         this.taskinfo[i].vehicleid='No Vehicle Available';
         this.taskinfo[i].charging='No Vehicle Available';
+        this.taskinfo[i].vehicletype='No Vehicle Available'//需要改动
       }
       for(let i=0;i<this.fleetinfo.length;i++){
         this.taskinfo[i].vehicleid=this.fleetinfo[i].vehicleid;
         this.taskinfo[i].charging=this.fleetinfo[i].charging;
+        this.taskinfo[i].vehicletype=this.fleetinfo[i].vehiclemodel;//必要改动
+        console.log('chargingcheck0: '+this.fleetinfo[i].vehiclemodel);
         this.freshtask(i);
       }
     }else{
       for(let i=0;i<this.taskinfo.length;i++){
         this.taskinfo[i].vehicleid=this.fleetinfo[i].vehicleid;
         this.taskinfo[i].charging=this.fleetinfo[i].charging;
+        this.taskinfo[i].vehicletype=this.fleetinfo[i].vehiclemodel;//必要改动
+        console.log('chargingcheck1: '+this.fleetinfo[i].vehiclemodel);
         this.freshtask(i);
       }
     }
@@ -146,11 +151,13 @@ export class RankingPage {
       //console.log('homepush: '+this.taskinfo.length+' '+ this.taskinfo[0].object+this.taskinfo[0].distance);
   }
   freshtask(i){
+    console.log('chargingtaskcheck: '+this.taskinfo[i].vehicletype);
     let Tasks = Parse.Object.extend('Task');
     let tasks = new Parse.Query(Tasks);
       tasks.get(this.taskinfo[i].object)
       .then((player)=>{
         player.set('VehicleID',this.taskinfo[i].vehicleid);
+        player.set('VehicleType',this.taskinfo[i].vehicletype);//需要改动
         player.save();
       });
   }
