@@ -43,6 +43,7 @@ export class PowerPage {
   counter_charging_repairs:number;
   counter_charging_safer:number;
   counter_charging_street:number;
+
   //line chart
   counter_january:number;
   counter_february:number;
@@ -59,7 +60,6 @@ export class PowerPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public store: Store<any>) {
-    // this.chartinfo=navParams.get('Chart');
     this.store.select('ManagementReducer').subscribe(state => {
       this.chartinfo = state.chart_info
     });
@@ -70,87 +70,7 @@ export class PowerPage {
   line(event){
     this.lineyear=event.value;
   }
-  // checkPower(){
 
-  //   // let Powers = Parse.Object.extend("Task")
-  //   // let powers = new Parse.Query(Powers);
-  //   // this.chartinfo = [];
-  //   // this.counterresult=[]
-  //   // powers.equalTo("Complete","Yes");
-  //   // const powersresults = await powers.find();
-  //   // for (let i = 0; i < powersresults.length; i++) {
-  //   //   var object = powersresults[i];
-  //   //   var powerinfo ={
-  //   //     vehicleid:object.get('VehicleID'),
-  //   //     vehiclemodel:object.get('VehicleModel'),
-  //   //     charging:object.get('ChargingLevel'),
-  //   //     day:object.get('Day'),
-  //   //     month:object.get('Month'),
-  //   //     year:object.get('Year'),
-  //   //     service:object.get('ServiceType'),
-  //   //     objectid:object.id
-  //   //   };
-  //     // let Powers_Charging = Parse.Object.extend("Fleet")
-  //     // let powers_charging = new Parse.Query(Powers_Charging);
-  //     // console.log('checkvehicleid: '+powerinfo.vehicleid);
-  //     // powers_charging.equalTo("VehicleID",powerinfo.vehicleid);
-  //     // const chargingresults = await powers_charging.find();
-  //     // console.log('lengthL:' +chargingresults.length);
-  //     // for(let i = 0; i < chargingresults.length; i++){
-  //     //   var object_charging = powersresults[i];
-  //     //   var powercharging ={
-  //     //     vehiclecharging: object_charging.get('ChargingLevel'),
-  //     //     vehicleobjectid:object_charging.id
-  //     //   }
-  //     //   console.log('first check0: '+powercharging.vehiclecharging+'- '+powercharging.vehicleobjectid);
-  //     // }
-  //     // powerinfo.charging=powercharging.vehiclecharging;
-  //     // console.log('first check: '+powerinfo.charging);
-  //   //   this.chartinfo.push(powerinfo);
-  //   // }
-  //   // for(let i=0;i<this.chartinfo.length;i++){
-  //   //   let Powers_Charging = Parse.Object.extend("Fleet")
-  //   //   let powers_charging = new Parse.Query(Powers_Charging);
-  //   //   powers_charging.equalTo("VehicleID",this.chartinfo[i].vehicleid);
-  //   //   const chargingresults = await powers_charging.find();
-  //   //   for(let i = 0; i < chargingresults.length; i++){
-  //   //     var object_charging = chargingresults[i];
-  //   //     var powercharging ={
-  //   //       vehiclecharging: object_charging.get('ChargingLevel'),
-  //   //       vehicleobjectid: object_charging.id
-  //   //     }
-  //   //   }
-  //   //   this.chartinfo[i].charging=powercharging.vehiclecharging;
-  //   // }
-  //   // this.counterdoughunt();
-  //   // this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-  //   //   type: "doughnut",
-  //   //   data: {
-  //   //     labels: ["Caretaking", "Disability&HomeImprovement", "Repairs&Investment", "SaferSpaces", "StreetServices"],
-  //   //     datasets: [
-  //   //       {
-  //   //         label: "# of Votes",
-
-  //   //         data: [this.counter_charging_caretaking,
-  //   //                this.counter_charging_disability,
-  //   //                this.counter_charging_repairs,
-  //   //                this.counter_charging_safer,
-  //   //                this.counter_charging_street
-  //   //               ],
-  //   //         backgroundColor: [
-  //   //           "rgba(255, 99, 132, 0.2)",
-  //   //           "rgba(54, 162, 235, 0.2)",
-  //   //           "rgba(255, 206, 86, 0.2)",
-  //   //           "rgba(75, 192, 192, 0.2)",
-  //   //           "rgba(153, 102, 255, 0.2)"
-  //   //           //"rgba(255, 159, 64, 0.2)"
-  //   //         ],
-  //   //         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB"]//, "#FFCE56"
-  //   //       }
-  //   //     ]
-  //   //   }
-  //   // });
-  // }
   refreshbar(){
     this.counterbar();
     this.barChart = new Chart(this.barCanvas.nativeElement, {

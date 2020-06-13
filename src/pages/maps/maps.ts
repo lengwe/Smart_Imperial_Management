@@ -2,15 +2,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GoogleMaps,GoogleMap, GoogleMapOptions } from '@ionic-native/google-maps';
 import { Store } from '@ngrx/store';
-//import { FindValueSubscriber } from 'rxjs/operators/find';
-// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
-/**
- * Generated class for the MapsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 declare var google:any;
 
@@ -25,20 +16,18 @@ export class MapsPage {
 
   map:any;
   @ViewChild('map') mapRef:ElementRef;
-  current: Marker;
   markers: Array<Marker> = [];
+
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public store: Store<any>
-    // private launchNavigator: LaunchNavigator
     ) {
-    // let data = this.navParams.get("data");
-    // this.current = data.current;
-    // this.markers = data.markers || [];
+
     this.store.select('ManagementReducer').subscribe(state => {
       this.markers = state.vehicle_info
+      this
     });
     console.log('Markers received', this.markers);
   }
@@ -82,8 +71,6 @@ export class MapsPage {
   }
 
   addMarker(position,map,content){
-    // let url = "http://maps.google.com/mapfiles/ms/icons/";
-    // url += colour + "-dot.png";
 
     return new google.maps.Marker({
       position,
