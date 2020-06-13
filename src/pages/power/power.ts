@@ -150,7 +150,6 @@ export class PowerPage {
     this.counter_charging_repairs=0;
     this.counter_charging_safer=0;
     this.counter_charging_street=0;
-    console.log('acc0: '+this.bardate+' ++ '+this.chartinfo[0].date);
     for(let i=0;i<this.chartinfo.length;i++){
       if(this.chartinfo[i].date==this.bardate){
         this.counterresult.push(this.chartinfo[i]);
