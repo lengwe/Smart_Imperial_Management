@@ -33,11 +33,25 @@
         <ion-option value="NISSAN ENV200">NISSAN ENV200</ion-option>
       </ion-select>
     </ion-item>
+    <h6>Service Department:</h6>
+    <ion-item color='background'>
+      <ion-label>Service Department:</ion-label>
+      <ion-select class = 'placeholder' multiple="False"
+      (ionBlur)="selectedService($event)"
+      >
+        <ion-option value="Caretaking">Caretaking</ion-option>
+        <ion-option value="Disability & Home Improvement">Disability & Home Improvement </ion-option>
+        <ion-option value="Repairs & Investment">Repairs & Investment </ion-option>
+        <ion-option value="Safer Spaces">Safer Spaces </ion-option>
+        <ion-option value="Street Services">Street Services</ion-option>
+      </ion-select>
+    </ion-item>
     <h6>Geoposition Latitude and Longtitude: </h6>
     <ion-item>
       <input type="number" [(ngModel)]="latitude" placeholder="Enter Latitude"/>
       <input type="number" [(ngModel)]="longitude" placeholder="Enter Longitude"/>
     </ion-item>
+
   </ion-list>
   <div class="item-note" item-end text-center>
     <button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
@@ -57,6 +71,9 @@
           Vehicle Model
         </ion-col>
         <ion-col >
+          Service Department
+        </ion-col>
+        <ion-col >
           Geoposition
         </ion-col>
         <ion-col >
@@ -68,6 +85,7 @@
         <ion-col size="6" text-center> {{todo.vehicleid}}</ion-col>
         <ion-col size="6" text-center> {{todo.charging}}</ion-col>
         <ion-col size="6" text-center> {{todo.vehiclemodel}}</ion-col>
+        <ion-col size="6" text-center> {{todo.servicetype}}</ion-col> 
         <ion-col size="6" text-center> Lat: {{todo.position.latitude}}, Lon:{{todo.position.longitude}}</ion-col>
         
         <ion-col class="item-note" item-end>
@@ -95,6 +113,9 @@
           Vehicle Model
         </ion-col>
         <ion-col >
+          Service Department
+        </ion-col>
+        <ion-col >
           Geoposition
         </ion-col>
       </ion-row>
@@ -103,6 +124,7 @@
         <ion-col size="6" text-center> {{todo.vehicleid}}</ion-col>
         <ion-col size="6" text-center> {{todo.charging}}</ion-col>
         <ion-col size="6" text-center> {{todo.vehiclemodel}}</ion-col> 
+        <ion-col size="6" text-center> {{todo.servicetype}}</ion-col> 
         <ion-col size="6" text-center> Lat:{{todo.latitude}},Lon:{{todo.longitude}}</ion-col>    
       </ion-row>
 		</ion-list>
