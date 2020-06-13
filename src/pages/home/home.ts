@@ -27,7 +27,6 @@ export class HomePage {
     public geolocation: Geolocation,
     private store: Store<any>
   ) {
-    // this.getMyLocation();
     let data  = Parse.User.current();
     this.username = data.get("username");
     console.log("username: ", this.username);
@@ -37,24 +36,12 @@ export class HomePage {
     });
   }
 
-  // getMyLocation() {
-  //   this.geolocation.getCurrentPosition().then((resp) => {
-  //     console.log('Current Position', resp.coords);
-  //     this.geoposition = resp;
-  //   }).catch((error) => {
-  //     console.log('Error getting location', error);
-  //   });
-  // }
   async profile() {
     let Managers = Parse.Object.extend('Manager')
     let managers = new Parse.Query(Managers);
     managers.equalTo("Username", this.username);
     const results = await managers.find();
-    // for (let i = 0; i < results.length; i++) {
-    //   var object = results[i];
-    //   // console.log("hahah",results.length);
-    // }
-    // console.log("hahah",typeof results);
+
     var info = {Title:results[0].get('Title'),
                 FirstName:results[0].get('FirstName'),
                 LastName: results[0].get('LastName'),
@@ -73,8 +60,6 @@ export class HomePage {
     });
 
     this.navCtrl.push('ProfilePage');
-
-    //alert(object.get('Username'));
   }
 
   getAllVehicle() {
@@ -135,8 +120,7 @@ export class HomePage {
   async gopowerconsumption(){
     let Powers = Parse.Object.extend("Task")
     let powers = new Parse.Query(Powers);
-    // this.chartinfo = [];
-    // this.counterresult=[]
+
     powers.equalTo("Complete","Yes");
     const powersresults = await powers.find();
     for (let i = 0; i < powersresults.length; i++) {
@@ -157,7 +141,7 @@ export class HomePage {
     }
 
     for(let i=0;i<this.chartinfo.length;i++){
-      let Powers_Charging = Parse.Object.extend("Fleet")
+      let Powers_Charging = Parse.Object.extend("FleetT")
       let powers_charging = new Parse.Query(Powers_Charging);
       powers_charging.equalTo("VehicleID",this.chartinfo[i].vehicleid);
       const chargingresults = await powers_charging.find();

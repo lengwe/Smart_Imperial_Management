@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import Parse from 'parse';
-/**
- * Generated class for the RankingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage({
   defaultHistory:['HomePage']
@@ -112,9 +106,7 @@ export class RankingPage {
       this.fleetinfo.push(vehicleinfo);
     }
     this.fleetinfo.sort(this.chargcompare);
-    // for(let i=0;i<this.fleetinfo.length;i++){
-    //   console.log('chargingcheck: '+this.fleetinfo[i].charging);
-    // }
+
     if(this.taskinfo.length>this.fleetinfo.length){
       for(let i=this.fleetinfo.length;i<this.taskinfo.length;i++){
         this.taskinfo[i].vehicleid='No Vehicle Available';
@@ -132,10 +124,8 @@ export class RankingPage {
         this.freshtask(i);
       }
     }
-
-
-      //console.log('homepush: '+this.taskinfo.length+' '+ this.taskinfo[0].object+this.taskinfo[0].distance);
   }
+
   freshtask(i){
     let Tasks = Parse.Object.extend('Task');
     let tasks = new Parse.Query(Tasks);
