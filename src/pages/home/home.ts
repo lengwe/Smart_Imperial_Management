@@ -63,7 +63,7 @@ export class HomePage {
   }
 
   getAllVehicle() {
-    let query = new Parse.Query('Fleet');
+    let query = new Parse.Query('FleetT');
 
     query.find().then(vehicles => {
       console.log('Vehicle', vehicles);
