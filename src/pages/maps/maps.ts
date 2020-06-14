@@ -27,7 +27,6 @@ export class MapsPage {
 
     this.store.select('ManagementReducer').subscribe(state => {
       this.markers = state.vehicle_info
-      this
     });
     console.log('Markers received', this.markers);
   }
