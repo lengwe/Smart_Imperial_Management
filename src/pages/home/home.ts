@@ -69,9 +69,10 @@ export class HomePage {
       console.log('Vehicle', vehicles);
 
       let fleet = vehicles.map(v => {
+
         return {
-          lat: v.get('Position').latitude,
-          lng: v.get('Position').longitude,
+          lat: v.get('GeoPosition').latitude,
+          lng: v.get('GeoPosition').longitude,
           label: v.get('VehicleID'),
           ChargingLevel: v.get('ChargingLevel'),
           Model: v.get('VehicleModel')

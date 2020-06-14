@@ -14,10 +14,7 @@
 
 
 <ion-content padding>
-  <h6>Please enter employee's username, service department and task dates:</h6>
-  <ion-item >
-    <ion-input class = 'placeholder' placeholder="Username" [(ngModel)]="username"></ion-input>
-  </ion-item>
+  <h6>Please enter service department and task dates:</h6>
   <ion-item color='background'>
     <ion-label>Service Department:</ion-label>
     <ion-select class = 'placeholder' multiple="False"
@@ -117,25 +114,25 @@
   <ion-grid >
     <ion-row   text-center>
       <ion-col>
-        Task ID
+        <b>Task ID</b>
       </ion-col>
       <ion-col >
-        Username
+        <b>Username</b>
       </ion-col>
       <ion-col >
-        Date
+        <b>Date</b>
       </ion-col>
       <ion-col >
-        Distance
+        <b>Distance</b>
       </ion-col>
       <ion-col >
-        Service Department
+        <b>Service Department</b>
       </ion-col>
       <ion-col>
-        Vehicle ID
+        <b>Vehicle ID</b>
       </ion-col>
       <ion-col>
-        Vehicle Charging Level (%)
+        <b>Vehicle Charging Level (%)</b>
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let item of taskinfo" >

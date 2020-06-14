@@ -26,10 +26,27 @@ export class LoginPage {
 
   signIn() {
     Parse.User.logIn(this.username, this.password,{}).then((resp) => {
-      console.log('Logged in successfully', resp);
+      if( resp.get("Department")=="Manager"){
+        this.navCtrl.setRoot('HomePage');
+      }
+      else{
+        Parse.User.logOut().then((resp) => {
+          alert("You are not an manager!");
 
+          // this.navCtrl.setRoot('LoginPage');
+        }, err => {
+          console.log('Error logging out', err);
+
+          this.toastCtrl.create({
+            message: 'Error logging out',
+            duration: 2000
+          }).present();
+        })
+      }
+      console.log('Logged in successfully', resp.get("Department"));
       // If you app has Tabs, set root to TabsPage
-      this.navCtrl.setRoot('HomePage')
+      // var info = this.username;
+
     }, err => {
       console.log('Error logging in', err);
 
@@ -38,6 +55,11 @@ export class LoginPage {
         duration: 2000
       }).present();
     });
+
+    const LoginHistory = Parse.Object.extend("LoginHistory");
+    const history = new LoginHistory();
+    history.set("Username", this.username);
+    history.save();
   }
 
   ionViewDidLoad() {
