@@ -14,51 +14,55 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <h6>Vehicle ID: </h6>
-    <ion-item>
-      <input type="text" [(ngModel)]="vehicleid" placeholder="Enter Vehicle ID"/>
-    </ion-item>
-    <h6>Charging Level(%): </h6>
-    <ion-item>
-      <input type="text" [(ngModel)]="charging" placeholder="Enter Vehicle Charging Level"/>
-    </ion-item>
-    <h6>Vehicle Model:</h6>
-    <ion-item color='background'>
-      <ion-label>Vehicle Model:</ion-label>
-      <ion-select class = 'placeholder' placeholder="Select One" [(ngModel)]="this.vehiclemodel" 
-      (ionBlur)="selectedVehicle($event)"
-      >
-        <ion-option value="RENAULT KANGOO">RENAULT KANGOO</ion-option>
-        <ion-option value="NISSAN ENV200">NISSAN ENV200</ion-option>
-      </ion-select>
-    </ion-item>
-    <h6>Service Department:</h6>
-    <ion-item color='background'>
-      <ion-label>Service Department:</ion-label>
-      <ion-select class = 'placeholder' multiple="False"
-      (ionBlur)="selectedService($event)"
-      >
-        <ion-option value="Caretaking">Caretaking</ion-option>
-        <ion-option value="Disability & Home Improvement">Disability & Home Improvement </ion-option>
-        <ion-option value="Repairs & Investment">Repairs & Investment </ion-option>
-        <ion-option value="Safer Spaces">Safer Spaces </ion-option>
-        <ion-option value="Street Services">Street Services</ion-option>
-      </ion-select>
-    </ion-item>
-    <h6>Geoposition Latitude and Longtitude: </h6>
-    <ion-item>
-      <input type="number" [(ngModel)]="latitude" placeholder="Enter Latitude"/>
-      <input type="number" [(ngModel)]="longitude" placeholder="Enter Longitude"/>
-    </ion-item>
-
-  </ion-list>
-  <div class="item-note" item-end text-center>
-    <button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
-    <button ion-button (click)="viewfleet()"><ion-icon name="menu"></ion-icon></button> 
-  </div>
   <div padding>
-    <h5 text-center>Current Vehicle List</h5>
+    <h2 text-center>Add New Vehicle</h2>
+    <ion-list>
+      <h6>Vehicle ID: </h6>
+      <ion-item>
+        <input type="text" [(ngModel)]="vehicleid" placeholder="Enter Vehicle ID"/>
+      </ion-item>
+      <h6>Charging Level(%): </h6>
+      <ion-item>
+        <input type="text" [(ngModel)]="charging" placeholder="Enter Vehicle Charging Level"/>
+      </ion-item>
+      <h6>Vehicle Model:</h6>
+      <ion-item color='background'>
+        <ion-label>Vehicle Model:</ion-label>
+        <ion-select class = 'placeholder' placeholder="Select One" [(ngModel)]="this.vehiclemodel" 
+        (ionBlur)="selectedVehicle($event)"
+        >
+          <ion-option value="RENAULT KANGOO">RENAULT KANGOO</ion-option>
+          <ion-option value="NISSAN ENV200">NISSAN ENV200</ion-option>
+        </ion-select>
+      </ion-item>
+      <h6>Service Department:</h6>
+      <ion-item color='background'>
+        <ion-label>Service Department:</ion-label>
+        <ion-select class = 'placeholder' multiple="False"
+        (ionBlur)="selectedService($event)"
+        >
+          <ion-option value="Caretaking">Caretaking</ion-option>
+          <ion-option value="Disability & Home Improvement">Disability & Home Improvement </ion-option>
+          <ion-option value="Repairs & Investment">Repairs & Investment </ion-option>
+          <ion-option value="Safer Spaces">Safer Spaces </ion-option>
+          <ion-option value="Street Services">Street Services</ion-option>
+        </ion-select>
+      </ion-item>
+      <h6>Geoposition Latitude and Longtitude: </h6>
+      <ion-item>
+        <input type="number" [(ngModel)]="latitude" placeholder="Enter Latitude"/>
+        <input type="number" [(ngModel)]="longitude" placeholder="Enter Longitude"/>
+      </ion-item>
+    </ion-list>
+    <div class="item-note" item-end text-center>
+      <button ion-button (click)="addfleet()"><ion-icon name="add"></ion-icon></button>
+      <button ion-button (click)="viewfleet()"><ion-icon name="menu"></ion-icon></button> 
+    </div>
+  </div>
+
+
+  <div padding>
+    <h2 text-center>Current Vehicle List</h2>
 		<ion-list>
       <ion-row text-center>
         <ion-col>
@@ -88,7 +92,7 @@
         <ion-col size="6" text-center> {{todo.servicetype}}</ion-col> 
         <ion-col size="6" text-center> Lat: {{todo.position.latitude}}, Lon:{{todo.position.longitude}}</ion-col>
         
-        <ion-col class="item-note" item-end>
+        <ion-col class="item-note" item-end text-center>
           <button ion-button clear (click)="updatefleet(i)">
             <ion-icon name="create"></ion-icon>
           </button>
@@ -100,7 +104,7 @@
 		</ion-list>
 	</div>
   <div padding>
-    <h5 text-center>New Added Vehicle List</h5>
+    <h2 text-center>New Added Vehicle List</h2>
 		<ion-list>
       <ion-row text-center>
         <ion-col>
