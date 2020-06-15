@@ -159,22 +159,27 @@ export class PowerPage {
       if(this.counterresult[i].service=="Caretaking"){
         //this.counter_caretaking=this.counter_caretaking+1;
         this.counter_charging_caretaking=(100-this.counterresult[i].charging+this.counter_charging_caretaking);
+        this.counter_charging_caretaking=this.counter_charging_caretaking*0.33;//0.33=33kwh/100% 33kwh is the battery capacity for Renault
       }
       if(this.counterresult[i].service=="Disability & Home Improvement"){
         //this.counter_disability=this.counter_disability+1;
         this.counter_charging_disability=100-this.counterresult[i].charging+this.counter_charging_disability;
+        this.counter_charging_disability=this.counter_charging_disability*0.33;
       }
       if(this.counterresult[i].service=="Repairs & Investment"){
         //this.counter_repairs=this.counter_repairs+1;
         this.counter_charging_repairs=100-this.counterresult[i].charging+this.counter_charging_repairs;
+        this.counter_charging_repairs=this.counter_charging_repairs*0.4;//0.4=40kwh/100% 40kwh is the battery capacity for Nissan
       }
       if(this.counterresult[i].service=="Safer Spaces"){
         //this.counter_safer=this.counter_safer+1;
         this.counter_charging_safer=100-this.counterresult[i].charging+this.counter_charging_safer;
+        this.counter_charging_safer=this.counter_charging_safer*0.33;
       }
       if(this.counterresult[i].service=="Street Services"){
         //this.counter_street=this.counter_street+1;
         this.counter_charging_street=100-this.counterresult[i].charging+this.counter_charging_street;
+        this.counter_charging_street=this.counter_charging_street*0.33;
       }
     }
   }
@@ -232,24 +237,29 @@ export class PowerPage {
       if(this.counterresult[i].service=="Caretaking"){
         this.counter_caretaking=this.counter_caretaking+1;
         this.counter_charging_caretaking=(100-this.counterresult[i].charging+this.counter_charging_caretaking);
+        this.counter_charging_caretaking=this.counter_charging_caretaking*0.33;
         // console.log('charging2: '+this.counterresult[i].charging);
       }
       if(this.counterresult[i].service=="Disability & Home Improvement"){
         this.counter_disability=this.counter_disability+1;
         this.counter_charging_disability=100-this.counterresult[i].charging+this.counter_charging_disability;
+        this.counter_charging_disability=this.counter_charging_disability*0.33;
       }
       if(this.counterresult[i].service=="Repairs & Investment"){
         //console.log('checkresult22: '+this.counterresult[i].objectid);
         this.counter_repairs=this.counter_repairs+1;
         this.counter_charging_repairs=100-this.counterresult[i].charging+this.counter_charging_repairs;
+        this.counter_charging_repairs=this.counter_charging_repairs*0.4;
       }
       if(this.counterresult[i].service=="Safer Spaces"){
         this.counter_safer=this.counter_safer+1;
         this.counter_charging_safer=100-this.counterresult[i].charging+this.counter_charging_safer;
+        this.counter_charging_safer=this.counter_charging_safer*0.33;
       }
       if(this.counterresult[i].service=="Street Services"){
         this.counter_street=this.counter_street+1;
         this.counter_charging_street=100-this.counterresult[i].charging+this.counter_charging_street;
+        this.counter_charging_street=this.counter_charging_street*0.33;
       }
     }
   }
@@ -364,7 +374,7 @@ export class PowerPage {
       }
       if(this.counterresult[i].month=="04"){
         this.counter_april=100-this.counterresult[i].charging+this.counter_april;
-        console.log('check01: '+this.counterresult[i].charging);
+        //console.log('check01: '+this.counterresult[i].charging);
       }
       if(this.counterresult[i].month=="05"){
         this.counter_may=100-this.counterresult[i].charging+this.counter_may;
