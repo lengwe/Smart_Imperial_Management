@@ -23,18 +23,7 @@ const initialState: ManagementReducerState = {
 
 export function reducer(state = initialState,action){
   switch(action.type){
-    // case "LOGOUT":
-    //   return {
-    //     ...state,
-    //     login:false,
-    //     username: action.payload
-    //   }
-    // case "LOGIN":
-    //   return{
-    //     ...state,
-    //     login:true,
-    //     username: action.payload
-    //   }
+
     case "VEHICLE":
       return{
         ...state,
