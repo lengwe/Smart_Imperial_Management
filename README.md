@@ -6,10 +6,30 @@ This repo contains all the code for the management side of the app. All the sour
 
 ## How to run the program
 
-To run the management side of the application, clone this repo and cd into this repo in the terminal. Run the following command:
+Before running the application, make sure that the Node.JS is installed and run the following command in the terminal:
+
+```
+npm install -g @ionic/cli
+```
+
+Then run this command to install all the packages that used in the program:
+
+```
+npm install
+```
+
+To excute the program, clone this repo and cd into it in the terminal, then run the following command:
 
 ```
 ionic serve
 ```
 
-An website shall pop up and you can access the application now.
+A website shall pop up and you can access the application now.
+
+
+## Video Demonstration
+
+A video has been recorded by the team for demonstrating the functionality of this application.
+A link has provided below:
+
+https://drive.google.com/file/d/1f3JzzoFdDI2wPAGWOICLBs6AK2NJ3vmE/preview
