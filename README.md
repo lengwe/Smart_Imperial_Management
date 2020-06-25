@@ -13,3 +13,9 @@ ionic serve
 ```
 
 An website shall pop up and you can access the application now.
+
+## Video Demonstration
+
+<figure class="video_container">
+  <iframe src="https://drive.google.com/file/d/1f3JzzoFdDI2wPAGWOICLBs6AK2NJ3vmE/preview" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
