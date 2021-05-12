@@ -33,7 +33,7 @@
     "@ngrx/store": "^4",
     "@swimlane/ngx-datatable": "^17.0.0",
     "@types/googlemaps": "3.38.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "cordova-plugin-geolocation": "^4.0.2",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
